@@ -1,0 +1,22 @@
+src
+|- __tests__
+  |- Listings.test.tsx
+  |- Filters.test.tsx
+  |- Pagination.test.tsx
+|- components
+  |- Listings
+    |- Listings.tsx
+  |- Filters
+    |- Filters.tsx
+  |- Pagination
+    |- Pagination.tsx
+|- services
+  |- api.ts
+|- data
+  |- listing.ts
+|- styles
+  |- main.scss
+|- utils
+  |- filtering.ts
+|- App.tsx
+|- index.tsx
