@@ -1,12 +1,47 @@
 .listing-card {
-  &__name {
-    font-size: 1.5em;
-    font-weight: bold;
-  }
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 1rem;
 
   &__picture {
-    width: 400px;
-    height: 300px;
-    object-fit: cover;
+    width: 20%;
+    min-width: 200px;
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+  }
+
+  &__name {
+    width: 20%;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-right: 1rem;
+  }
+
+  &__details {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+
+    &__row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5rem;
+
+      &__label {
+        width: 20%;
+        font-size: 1.2rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        color: #888;
+      }
+
+      &__value {
+        width: 80%;
+        font-size: 1.2rem;
+        font-weight: 600;
+      }
+    }
   }
 }

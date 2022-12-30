@@ -5,6 +5,17 @@ import ListingCard from "../ListingCard/ListingCard";
 import listingData from "../../services/api";
 import "./Listings.scss";
 
+interface TransformedListing {
+  id: string;
+  name: string;
+  picture: string;
+  type: string;
+  minOccupancy: number;
+  maxOccupancy: number;
+  sqft: number;
+  amenities: string[];
+}
+
 type Listing = {
   id: string;
   name: string;
@@ -21,7 +32,7 @@ type Unit = {
 };
 
 type State = {
-  listings: Listing[];
+  listings: TransformedListing[];
   currentPage: number;
   listingsPerPage: number;
   totalPages: number;
@@ -43,13 +54,22 @@ class Listings extends React.Component<{}, State> {
     axios
       .get(listingData(this.state.currentPage, this.state.listingsPerPage))
       .then((response) => {
-        this.setState({
-          listings: response.data,
-          totalPages: Number(response.headers["x-total-count"]),
+        const transformedListings: TransformedListing[] = [];
+        response.data.forEach((listing: Listing) => {
+          listing.units.forEach((unit) => {
+            transformedListings.push({
+              id: listing.id,
+              name: listing.name,
+              picture: listing.picture,
+              type: unit.type,
+              minOccupancy: unit.minOccupancy,
+              maxOccupancy: unit.maxOccupancy,
+              sqft: unit.sqft,
+              amenities: unit.amenities,
+            });
+          });
         });
-      })
-      .catch((error) => {
-        console.error(error);
+        this.setState({ listings: transformedListings });
       });
   }
 
@@ -58,9 +78,23 @@ class Listings extends React.Component<{}, State> {
     axios
       .get(listingData(selectedPage, this.state.listingsPerPage))
       .then((response) => {
+        const transformedListings = response.data.map((listing: Listing) => {
+          return listing.units.map((unit) => {
+            return {
+              id: listing.id,
+              name: listing.name,
+              picture: listing.picture,
+              type: unit.type,
+              minOccupancy: unit.minOccupancy,
+              maxOccupancy: unit.maxOccupancy,
+              sqft: unit.sqft,
+              amenities: unit.amenities,
+            };
+          });
+        });
         this.setState({
           currentPage: selectedPage,
-          listings: response.data,
+          listings: transformedListings,
         });
       })
       .catch((error) => {
@@ -78,6 +112,11 @@ class Listings extends React.Component<{}, State> {
             id={listing.id}
             name={listing.name}
             picture={listing.picture}
+            type={listing.type}
+            minOccupancy={listing.minOccupancy}
+            maxOccupancy={listing.maxOccupancy}
+            sqft={listing.sqft}
+            amenities={listing.amenities}
           />
         ))}
         <Pagination
