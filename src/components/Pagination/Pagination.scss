@@ -1,20 +1,43 @@
 .pagination {
-  &__container {
+  &__item {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin: 2rem 0;
+    list-style-type: none;
   }
-  &__item {
-    border: 1px solid #ccc;
-    color: #333;
-    cursor: pointer;
-    display: inline-block;
-    font-size: 14px;
-    padding: 6px 12px;
-    margin: 0 3px;
-    &--active {
-      background-color: #333;
-      color: #fff;
+
+  &__item--active {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    background-color: #ccc;
+
+    &__previous,
+    &__next,
+    &__page {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      padding: 0.5rem;
+      margin: 0 0.5rem;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      user-select: none;
+
+      &:hover {
+        background-color: #ccc;
+      }
+    }
+
+    &__previous {
+      border-radius: 3px 0 0 3px;
+    }
+
+    &__next {
+      border-radius: 0 3px 3px 0;
     }
   }
 }

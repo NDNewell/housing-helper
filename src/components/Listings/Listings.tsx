@@ -27,7 +27,7 @@ class Listings extends React.Component<{}, State> {
   state: State = {
     listings: [],
     currentPage: 1,
-    listingsPerPage: 10,
+    listingsPerPage: 5,
     totalPages: 0,
   };
 
