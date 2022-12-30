@@ -2,10 +2,11 @@ import * as React from "react";
 import axios from "axios";
 import Pagination from "../Pagination/Pagination";
 import ListingCard from "../ListingCard/ListingCard";
+import DropdownFilter from "../Filters/DropdownFilter";
 import listingDataApi from "../../services/api";
 import "./Listings.scss";
 
-type Listing = {
+export type Listing = {
   id: string;
   name: string;
   picture: string;
@@ -53,10 +54,18 @@ class Listings extends React.Component<{}, State> {
     this.getListings(selectedPage);
   };
 
+  handleFilter = (filteredListings: Listing[]) => {
+    this.setState({ listings: filteredListings });
+  };
+
   render() {
     return (
       <div className="listings">
         <h2 className="listings__heading">Affordable Housing Listings</h2>
+        <DropdownFilter
+          listings={this.state.listings}
+          onFilter={this.handleFilter}
+        />
         {this.state.listings.map((listing) => (
           <ListingCard
             key={listing.id}
