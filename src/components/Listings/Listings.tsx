@@ -2,7 +2,7 @@ import * as React from "react";
 import axios from "axios";
 import Pagination from "../Pagination/Pagination";
 import ListingCard from "../ListingCard/ListingCard";
-import listingData from "../../services/api";
+import listingDataApi from "../../services/api";
 import "./Listings.scss";
 
 type Listing = {
@@ -32,26 +32,25 @@ class Listings extends React.Component<{}, State> {
   };
 
   componentDidMount() {
-    axios
-      .get(listingData(this.state.currentPage, this.state.listingsPerPage))
-      .then((response) => {
-        this.setState({ listings: response.data });
-      });
+    this.getListings(this.state.currentPage);
   }
+
+  getListings = (page: number) => {
+    axios
+      .get(listingDataApi(page, this.state.listingsPerPage))
+      .then((response) => {
+        const totalCount = Number(response.headers["x-total-count"]);
+        this.setState({
+          listings: response.data,
+          totalPages: Math.ceil(totalCount / this.state.listingsPerPage),
+          currentPage: page,
+        });
+      });
+  };
 
   handlePageChange = ({ selected }: Page) => {
     const selectedPage = selected + 1;
-    axios
-      .get(listingData(selectedPage, this.state.listingsPerPage))
-      .then((response) => {
-        this.setState({
-          currentPage: selectedPage,
-          listings: response.data,
-        });
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    this.getListings(selectedPage);
   };
 
   render() {
