@@ -15,6 +15,7 @@ export type Listing = {
 
 type State = {
   listings: Listing[];
+  listingsData: Listing[];
   currentPage: number;
   listingsPerPage: number;
   totalPages: number;
@@ -26,6 +27,7 @@ type Page = {
 
 class Listings extends React.Component<{}, State> {
   state: State = {
+    listingsData: [],
     listings: [],
     currentPage: 1,
     listingsPerPage: 5,
@@ -42,7 +44,7 @@ class Listings extends React.Component<{}, State> {
       .then((response) => {
         const totalCount = Number(response.headers["x-total-count"]);
         this.setState({
-          listings: response.data,
+          listingsData: response.data,
           totalPages: Math.ceil(totalCount / this.state.listingsPerPage),
           currentPage: page,
         });
@@ -63,8 +65,13 @@ class Listings extends React.Component<{}, State> {
       <div className="listings">
         <h2 className="listings__heading">Affordable Housing Listings</h2>
         <DropdownFilter
-          listings={this.state.listings}
+          filterItems={this.state.listingsData}
           onFilter={this.handleFilter}
+          filters={[
+            { label: "A-Z", value: "az", filterProperty: "name" },
+            { label: "Z-A", value: "za", filterProperty: "name" },
+          ]}
+          filterTypeDefault={"az"}
         />
         {this.state.listings.map((listing) => (
           <ListingCard
