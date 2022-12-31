@@ -34,16 +34,16 @@ const DropdownFilter: React.FC<Props> = ({
 
   const sortFilterItems = (filterItems: Listing[], filterType: string) => {
     switch (filterType) {
-      case "az" || "za":
-        return filterType === "az"
-          ? _.sortBy(
-              filterItems,
-              filters.filter((item) => item.value === "az")[0].filterProperty
-            )
-          : _.sortBy(
-              filterItems,
-              filters.filter((item) => item.value === "az")[0].filterProperty
-            ).reverse();
+      case "az":
+        return _.sortBy(
+          filterItems,
+          filters.filter((item) => item.value === "az")[0].filterProperty
+        );
+      case "za":
+        return _.sortBy(
+          filterItems,
+          filters.filter((item) => item.value === "az")[0].filterProperty
+        ).reverse();
       default:
         return filterItems;
     }
