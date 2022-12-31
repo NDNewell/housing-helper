@@ -21,7 +21,7 @@
       justify-content: center;
       border: 1px solid #ccc;
       border-radius: 3px;
-      padding: 0.5rem;
+      padding: 0 !important;
       margin: 0 0.5rem;
       cursor: pointer;
       transition: background-color 0.2s;
@@ -34,10 +34,23 @@
 
     &__previous {
       border-radius: 3px 0 0 3px;
+      padding: 8px;
     }
 
     &__next {
       border-radius: 0 3px 3px 0;
+      padding: 8px;
+    }
+
+    &__previous,
+    &__next {
+      a {
+        padding: 8px;
+      }
+    }
+
+    &__pageLink {
+      padding: 8px;
     }
   }
 }

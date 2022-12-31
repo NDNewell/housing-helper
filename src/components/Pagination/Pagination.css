@@ -10,20 +10,32 @@
   align-items: center;
   list-style: none;
   background-color: #ccc; }
-  .pagination__item--active__previous, .pagination__item--active__next, .pagination__item--active__page {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    padding: 0.5rem;
-    margin: 0 0.5rem;
-    cursor: pointer;
-    transition: background-color 0.2s;
-    user-select: none; }
-    .pagination__item--active__previous:hover, .pagination__item--active__next:hover, .pagination__item--active__page:hover {
-      background-color: #ccc; }
-  .pagination__item--active__previous {
-    border-radius: 3px 0 0 3px; }
-  .pagination__item--active__next {
-    border-radius: 0 3px 3px 0; }
+
+.pagination__item--active__previous, .pagination__item--active__next, .pagination__item--active__page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  padding: 0 !important;
+  margin: 0 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  user-select: none; }
+
+.pagination__item--active__previous:hover, .pagination__item--active__next:hover, .pagination__item--active__page:hover {
+  background-color: #ccc; }
+
+.pagination__item--active__previous {
+  border-radius: 3px 0 0 3px;
+  padding: 8px; }
+
+.pagination__item--active__next {
+  border-radius: 0 3px 3px 0;
+  padding: 8px; }
+
+.pagination__item--active__previous a, .pagination__item--active__next a {
+  padding: 8px; }
+
+.pagination__item--active__pageLink {
+  padding: 8px; }

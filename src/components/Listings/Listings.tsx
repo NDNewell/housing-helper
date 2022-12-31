@@ -94,7 +94,6 @@ class Listings extends React.Component<{}, State> {
         <Pagination
           totalPages={this.state.totalPages}
           onPageChange={this.handlePageChange}
-          currentPage={this.state.currentPage}
         />
       </div>
     );

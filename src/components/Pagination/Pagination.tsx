@@ -5,13 +5,8 @@ import "./Pagination.scss";
 type Props = {
   totalPages: number;
   onPageChange: (selectedItem: any) => void;
-  currentPage: number;
 };
-const Pagination: React.FC<Props> = ({
-  currentPage,
-  totalPages,
-  onPageChange,
-}) => {
+const Pagination: React.FC<Props> = ({ totalPages, onPageChange }) => {
   return (
     <div className="pagination">
       <PaginateComp
