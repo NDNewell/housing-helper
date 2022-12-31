@@ -68,10 +68,19 @@ class Listings extends React.Component<{}, State> {
           filterItems={this.state.listingsData}
           onFilter={this.handleFilter}
           filters={[
-            { label: "A-Z", value: "az", filterProperty: "name" },
-            { label: "Z-A", value: "za", filterProperty: "name" },
+            {
+              label: "A-Z",
+              value: "az",
+              filterProperty: "name",
+              default: true,
+            },
+            {
+              label: "Z-A",
+              value: "za",
+              filterProperty: "name",
+              default: false,
+            },
           ]}
-          filterTypeDefault={"az"}
         />
         {this.state.listings.map((listing) => (
           <ListingCard

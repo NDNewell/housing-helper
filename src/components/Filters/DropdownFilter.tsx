@@ -6,21 +6,22 @@ export type Filter = {
   label: string;
   value: string;
   filterProperty: string;
+  default: boolean;
 };
 
 type Props = {
   filterItems: Listing[];
   onFilter: (filterItems: Listing[]) => void;
   filters: Filter[];
-  filterTypeDefault: string;
 };
 
 const DropdownFilter: React.FC<Props> = ({
   filterItems,
   filters,
-  filterTypeDefault,
   onFilter,
 }) => {
+  const filterTypeDefault = filters.filter((item) => item.default === true)[0]
+    .value;
   const [selectState, setState] = React.useState(filterTypeDefault);
   const updateSelectState = (newValue: string) => setState(newValue);
 
@@ -33,16 +34,16 @@ const DropdownFilter: React.FC<Props> = ({
 
   const sortFilterItems = (filterItems: Listing[], filterType: string) => {
     switch (filterType) {
-      case "az":
-        return _.sortBy(
-          filterItems,
-          filters.filter((item) => item.value === "az")[0].filterProperty
-        );
-      case "za":
-        return _.sortBy(
-          filterItems,
-          filters.filter((item) => item.value === "az")[0].filterProperty
-        ).reverse();
+      case "az" || "za":
+        return filterType === "az"
+          ? _.sortBy(
+              filterItems,
+              filters.filter((item) => item.value === "az")[0].filterProperty
+            )
+          : _.sortBy(
+              filterItems,
+              filters.filter((item) => item.value === "az")[0].filterProperty
+            ).reverse();
       default:
         return filterItems;
     }
