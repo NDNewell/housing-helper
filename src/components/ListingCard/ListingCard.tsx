@@ -87,6 +87,7 @@ const ListingCard = ({ id, name, picture, units }: Props) => {
           } else if (b.type === "Studio") {
             return 1;
           } else {
+            // Convert the unit type names to numbers and subtract them to sort the unit types by number of bedrooms
             return parseInt(a.type.slice(0, 1)) - parseInt(b.type.slice(0, 1));
           }
         })
