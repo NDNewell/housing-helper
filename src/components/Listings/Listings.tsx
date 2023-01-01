@@ -6,11 +6,13 @@ import DropdownFilter from "../Filters/DropdownFilter";
 import listingDataApi from "../../services/api";
 import "./Listings.scss";
 
+import { Unit } from "../ListingCard/ListingCard";
+
 export type Listing = {
   id: string;
   name: string;
   picture: string;
-  units: string[];
+  units: Unit[];
 };
 
 type State = {
