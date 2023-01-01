@@ -22,6 +22,13 @@ const ListingCard = ({ id, name, picture, units }: Props) => {
   const [unitTotalsList, setUnitTypesList] = React.useState<
     Array<{ type: string; unitTotals: number; averageSqft: number }>
   >([]);
+  const [amenities, setAmenities] = React.useState<string[]>([]);
+
+  React.useEffect(() => {
+    const allAmenities = units.flatMap((unit) => unit.amenities);
+    setAmenities(Array.from(new Set(allAmenities)));
+  }, [units]);
+
   // Use effect hook that runs when the units prop changes
   React.useEffect(() => {
     // Create an object that tracks the total number of units and total square footage for each unit type
@@ -101,6 +108,7 @@ const ListingCard = ({ id, name, picture, units }: Props) => {
       </div>
       <div className="listing-card__details">
         <h3 className="listing-card__name">{name}</h3>
+        <h5>Available Units:</h5>
         <ul className="listing-card__unit-types">
           {unitTotalsList.map((unit) => {
             return (
@@ -110,6 +118,8 @@ const ListingCard = ({ id, name, picture, units }: Props) => {
             );
           })}
         </ul>
+        <h5>Possible Amenities:</h5>
+        <span>{amenities.join(", ")}</span>
       </div>
     </div>
   );
