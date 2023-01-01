@@ -118,7 +118,7 @@ const ListingCard = ({ id, name, picture, units }: Props) => {
             );
           })}
         </ul>
-        <h5>Possible Amenities:</h5>
+        <h5>Some units may come with the following amenities:</h5>
         <span>{amenities.join(", ")}</span>
       </div>
     </div>
