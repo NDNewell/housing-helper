@@ -18,14 +18,23 @@ interface Props {
 }
 
 const ListingCard = ({ id, name, picture, units }: Props) => {
-  const [unitTypesList, setUnitTypesList] = React.useState<JSX.Element[]>([]);
+  const [unitTypesList, setUnitTypesList] = React.useState<
+    Array<{ type: string; count: number; averageSqft: number }>
+  >([]);
   React.useEffect(() => {
     const unitCount = units.reduce(
-      (count: { [key: string]: number }, unit: Unit) => {
+      (
+        count: { [key: string]: { count: number; totalSqft: number } },
+        unit: Unit
+      ) => {
         if (!count[unit.type]) {
-          count[unit.type] = 1;
+          count[unit.type] = {
+            count: 1,
+            totalSqft: unit.sqft,
+          };
         }
-        count[unit.type]++;
+        count[unit.type].count++;
+        count[unit.type].totalSqft += unit.sqft;
         return count;
       },
       {}
@@ -54,9 +63,12 @@ const ListingCard = ({ id, name, picture, units }: Props) => {
             default:
               displayUnitType = unitType;
           }
+          const unit = unitCount[unitType];
+          const averageSqft = Math.floor(unit.totalSqft / unit.count);
           return {
             type: displayUnitType,
-            count: unitCount[unitType],
+            count: unitCount[unitType].count,
+            averageSqft,
           };
         })
         .sort((a, b) => {
@@ -68,13 +80,6 @@ const ListingCard = ({ id, name, picture, units }: Props) => {
             return parseInt(a.type.slice(0, 1)) - parseInt(b.type.slice(0, 1));
           }
         })
-        .map((unit, index) => {
-          return (
-            <li key={index}>
-              {unit.type}: {unit.count} units
-            </li>
-          );
-        })
     );
   }, [units]);
 
@@ -85,7 +90,15 @@ const ListingCard = ({ id, name, picture, units }: Props) => {
       </div>
       <div className="listing-card__details">
         <h3 className="listing-card__name">{name}</h3>
-        <ul className="listing-card__unit-types">{unitTypesList}</ul>
+        <ul className="listing-card__unit-types">
+          {unitTypesList.map((unit) => {
+            return (
+              <li key={unit.type}>
+                {unit.type}: {unit.count} units, avg {unit.averageSqft} ft²
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </div>
   );
