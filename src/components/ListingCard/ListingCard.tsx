@@ -18,32 +18,39 @@ interface Props {
 }
 
 const ListingCard = ({ id, name, picture, units }: Props) => {
-  const [unitTypesList, setUnitTypesList] = React.useState<
-    Array<{ type: string; count: number; averageSqft: number }>
+  // unitTotalsList is an array of objects, each containing a unit type, the total number of units of that type, and the average square footage of units of that type
+  const [unitTotalsList, setUnitTypesList] = React.useState<
+    Array<{ type: string; unitTotals: number; averageSqft: number }>
   >([]);
+  // Use effect hook that runs when the units prop changes
   React.useEffect(() => {
-    const unitCount = units.reduce(
+    // Create an object that tracks the total number of units and total square footage for each unit type
+    const unitTotals = units.reduce(
       (
-        count: { [key: string]: { count: number; totalSqft: number } },
+        acc: { [key: string]: { unitTypeTotal: number; totalSqft: number } },
         unit: Unit
       ) => {
-        if (!count[unit.type]) {
-          count[unit.type] = {
-            count: 1,
+        // If the unit type does not yet exist in the object, add it and set the unit count and total square footage to the values for this unit
+        if (!acc[unit.type]) {
+          acc[unit.type] = {
+            unitTypeTotal: 1,
             totalSqft: unit.sqft,
           };
         }
-        count[unit.type].count++;
-        count[unit.type].totalSqft += unit.sqft;
-        return count;
+        // Otherwise, increment the unit count and add the square footage of this unit to the total
+        acc[unit.type].unitTypeTotal++;
+        acc[unit.type].totalSqft += unit.sqft;
+        return acc;
       },
       {}
     );
 
     setUnitTypesList(
-      Object.keys(unitCount)
+      // Calculate the average square footage for each unit type and sort the unit types by number of bedrooms, with studios coming first
+      Object.keys(unitTotals)
         .map((unitType) => {
           let displayUnitType;
+          // Convert the unit type names from their original form to a more user-friendly form (e.g. "oneBdrm" becomes "1 Bed")
           switch (unitType) {
             case "oneBdrm":
               displayUnitType = "1 Bed";
@@ -63,14 +70,17 @@ const ListingCard = ({ id, name, picture, units }: Props) => {
             default:
               displayUnitType = unitType;
           }
-          const unit = unitCount[unitType];
-          const averageSqft = Math.floor(unit.totalSqft / unit.count);
+          // Calculate the average square footage for the current unit type and rounds down to the nearest whole number
+          const unit = unitTotals[unitType];
+          const averageSqft = Math.floor(unit.totalSqft / unit.unitTypeTotal);
+          // This object is returned and will be added to the unitTypesList array
           return {
             type: displayUnitType,
-            count: unitCount[unitType].count,
+            unitTotals: unitTotals[unitType].unitTypeTotal,
             averageSqft,
           };
         })
+        // Sort the unit types by number of bedrooms, with studios coming first
         .sort((a, b) => {
           if (a.type === "Studio") {
             return -1;
@@ -91,10 +101,10 @@ const ListingCard = ({ id, name, picture, units }: Props) => {
       <div className="listing-card__details">
         <h3 className="listing-card__name">{name}</h3>
         <ul className="listing-card__unit-types">
-          {unitTypesList.map((unit) => {
+          {unitTotalsList.map((unit) => {
             return (
               <li key={unit.type}>
-                {unit.type}: {unit.count} units, avg {unit.averageSqft} ft²
+                {unit.type}: {unit.unitTotals} units, avg {unit.averageSqft} ft²
               </li>
             );
           })}
