@@ -11,22 +11,21 @@ type Props = {
 const Search: React.FC<Props> = ({ onSearch, listingsPerPage }) => {
   const [searchValue, setSearchValue] = React.useState("");
 
-  const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setSearchValue((event.target as HTMLInputElement).value);
+  const handleSearchSubmit = () => {
     search(searchValue);
   };
 
-  const handleKeyDown = (event: React.FormEvent<HTMLInputElement>) => {
+  const onChange = (event: React.FormEvent<HTMLInputElement>) => {
     event.preventDefault();
     setSearchValue((event.target as HTMLInputElement).value);
   };
 
-  const search = (searchValue: string) => {
+  const search = (query: string) => {
+    console.log(query);
     axios
       .get(
-        searchValue
-          ? api.search(searchValue, listingsPerPage)
+        query
+          ? api.search(query, listingsPerPage)
           : api.emptySearch(listingsPerPage)
       )
       .then((response) => {
@@ -42,8 +41,8 @@ const Search: React.FC<Props> = ({ onSearch, listingsPerPage }) => {
     <div className="filters__search">
       <form onSubmit={handleSearchSubmit}>
         <input
-          onKeyDown={handleKeyDown}
           type="text"
+          onChange={onChange}
           placeholder="Search for a property"
           value={searchValue}
         ></input>
