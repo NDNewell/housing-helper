@@ -1,10 +1,8 @@
 import * as React from "react";
-import axios from "axios";
 import Pagination from "../Pagination/Pagination";
 import ListingCard from "../ListingCard/ListingCard";
 import DropdownFilter from "../Filters/DropdownFilter";
 import Search from "../Filters/Search";
-import api from "../../services/api";
 import "./Listings.scss";
 
 import { Unit } from "../ListingCard/ListingCard";
@@ -22,6 +20,7 @@ type State = {
   currentPage: number;
   listingsPerPage: number;
   totalPages: number;
+  searchQuery: string;
 };
 
 type Page = {
@@ -35,36 +34,28 @@ class Listings extends React.Component<{}, State> {
     currentPage: 1,
     listingsPerPage: 5,
     totalPages: 0,
-  };
-
-  componentDidMount() {
-    this.getListings(this.state.currentPage);
-  }
-
-  getListings = (page: number) => {
-    axios
-      .get(api.listingsDataByPage(page, this.state.listingsPerPage))
-      .then((response) => {
-        const totalCount = Number(response.headers["x-total-count"]);
-        this.setState({
-          listingsData: response.data,
-          totalPages: Math.ceil(totalCount / this.state.listingsPerPage),
-          currentPage: page,
-        });
-      });
+    searchQuery: "",
   };
 
   handlePageChange = ({ selected }: Page) => {
     const selectedPage = selected + 1;
-    this.getListings(selectedPage);
+    this.setState({ currentPage: selectedPage });
   };
 
   handleFilter = (filteredListings: Listing[]) => {
     this.setState({ listings: filteredListings });
   };
 
-  handleSearch = (searchedListings: Listing[]) => {
-    this.setState({ listings: searchedListings });
+  handleSearch = (
+    searchResults: Listing[],
+    totalPages: number,
+    page: number
+  ) => {
+    this.setState({
+      listingsData: searchResults,
+      totalPages: totalPages,
+      currentPage: page,
+    });
   };
 
   render() {
@@ -92,6 +83,7 @@ class Listings extends React.Component<{}, State> {
         <Search
           onSearch={this.handleSearch}
           listingsPerPage={this.state.listingsPerPage}
+          page={this.state.currentPage}
         />
         {this.state.listings.map((listing) => (
           <ListingCard
@@ -102,10 +94,12 @@ class Listings extends React.Component<{}, State> {
             units={listing.units}
           />
         ))}
-        <Pagination
-          totalPages={this.state.totalPages}
-          onPageChange={this.handlePageChange}
-        />
+        {this.state.listings.length > 1 && (
+          <Pagination
+            totalPages={this.state.totalPages}
+            onPageChange={this.handlePageChange}
+          />
+        )}
       </div>
     );
   }
