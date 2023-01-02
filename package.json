@@ -29,7 +29,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "sass": "nodemon --exec 'node-sass src/ -o src/ --watch' --ignore src/",
-    "server": "json-server db.json --port 3001",
+    "server": "json-server db.json --port 3001 --routes routes.json",
     "dev": "concurrently \"npm start\" \"npm run sass\" \"npm run server\""
   },
   "eslintConfig": {

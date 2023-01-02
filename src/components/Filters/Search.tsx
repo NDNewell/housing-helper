@@ -63,7 +63,7 @@ const Search: React.FC<Props> = ({
   React.useEffect(() => {
     search(searchQuery);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchQuery, page]);
+  }, [searchQuery, page, refinements]);
 
   return (
     <div className="filters__search">
