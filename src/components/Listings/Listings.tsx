@@ -1,6 +1,7 @@
 import * as React from "react";
 import Pagination from "../Pagination/Pagination";
 import ListingCard from "../ListingCard/ListingCard";
+import Refinements from "../Filters/Refinements";
 import DropdownFilter from "../Filters/DropdownFilter";
 import Search from "../Filters/Search";
 import "./Listings.scss";
@@ -21,6 +22,7 @@ type State = {
   listingsPerPage: number;
   totalPages: number;
   searchQuery: string;
+  availableAmenities: string[];
 };
 
 type Page = {
@@ -35,6 +37,19 @@ class Listings extends React.Component<{}, State> {
     listingsPerPage: 5,
     totalPages: 0,
     searchQuery: "",
+    availableAmenities: [],
+  };
+
+  // Get all possible amenities from each unit's amenities array for each listing
+  getAvailableAmenities = (listingsData: Listing[]) => {
+    const amenitiesSet = new Set(
+      listingsData.flatMap((listing) =>
+        listing.units.flatMap((unit) => unit.amenities)
+      )
+    );
+    const amenities = Array.from(amenitiesSet);
+    const sortedAmenities = amenities.sort();
+    this.setState({ availableAmenities: sortedAmenities });
   };
 
   handlePageChange = ({ selected }: Page) => {
@@ -56,6 +71,11 @@ class Listings extends React.Component<{}, State> {
       totalPages: totalPages,
       currentPage: page,
     });
+    this.getAvailableAmenities(searchResults);
+  };
+
+  handleRefinements = (refinements: string[]) => {
+    console.log(refinements);
   };
 
   render() {
@@ -84,6 +104,10 @@ class Listings extends React.Component<{}, State> {
           onSearch={this.handleSearch}
           listingsPerPage={this.state.listingsPerPage}
           page={this.state.currentPage}
+        />
+        <Refinements
+          refinements={this.state.availableAmenities}
+          onSave={this.handleRefinements}
         />
         {this.state.listings.map((listing) => (
           <ListingCard

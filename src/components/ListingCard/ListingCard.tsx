@@ -26,7 +26,8 @@ const ListingCard = ({ id, name, picture, units }: Props) => {
 
   React.useEffect(() => {
     const allAmenities = units.flatMap((unit) => unit.amenities);
-    setAmenities(Array.from(new Set(allAmenities)));
+    const sortedAmenities = allAmenities.sort();
+    setAmenities(Array.from(new Set(sortedAmenities)));
   }, [units]);
 
   // Use effect hook that runs when the units prop changes
