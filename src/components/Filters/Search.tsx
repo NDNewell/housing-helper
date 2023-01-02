@@ -1,4 +1,5 @@
 import * as React from "react";
+import _ from "lodash";
 import axios from "axios";
 import api from "../../services/api";
 import { Listing } from "../Listings/Listings";
@@ -9,37 +10,30 @@ type Props = {
 };
 
 const Search: React.FC<Props> = ({ onSearch, listingsPerPage }) => {
-  const [searchValue, setSearchValue] = React.useState("");
+  const [searchQuery, setSearchQuery] = React.useState("");
 
   const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    search(searchValue);
+    search(searchQuery);
   };
 
   const handleClear = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    setSearchValue("");
+    setSearchQuery("");
     search("");
   };
 
   const onChange = (event: React.FormEvent<HTMLInputElement>) => {
     event.preventDefault();
-    setSearchValue((event.target as HTMLInputElement).value);
+    setSearchQuery((event.target as HTMLInputElement).value);
   };
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      search(searchValue);
-    }
-  };
-
-  const search = (query: string) => {
-    console.log(query);
+  const search = _.debounce((searchQuery: string) => {
+    console.log(searchQuery);
     axios
       .get(
-        query
-          ? api.search(query, listingsPerPage)
+        searchQuery
+          ? api.search(searchQuery, listingsPerPage)
           : api.emptySearch(listingsPerPage)
       )
       .then((response) => {
@@ -49,7 +43,12 @@ const Search: React.FC<Props> = ({ onSearch, listingsPerPage }) => {
       .catch((error) => {
         console.log(error);
       });
-  };
+  }, 500);
+
+  React.useEffect(() => {
+    search(searchQuery);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchQuery]);
 
   return (
     <div className="filters__search">
@@ -57,12 +56,10 @@ const Search: React.FC<Props> = ({ onSearch, listingsPerPage }) => {
         <input
           type="text"
           onChange={onChange}
-          onKeyDown={handleKeyDown}
           placeholder="Search for a property"
-          value={searchValue}
+          value={searchQuery}
         ></input>
-        <button type="submit">Search</button>
-        <button type="button" onClick={handleClear} disabled={!searchValue}>
+        <button type="button" onClick={handleClear} disabled={!searchQuery}>
           Clear
         </button>
       </form>
