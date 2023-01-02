@@ -1,6 +1,6 @@
 import * as React from "react";
 import _ from "lodash";
-import api from "../../services/api";
+import getListings from "../../services/api";
 import { Listing } from "../Listings/Listings";
 
 type Props = {
@@ -11,9 +11,15 @@ type Props = {
   ) => void;
   listingsPerPage: number;
   page: number;
+  refinements: string[];
 };
 
-const Search: React.FC<Props> = ({ onSearch, listingsPerPage, page }) => {
+const Search: React.FC<Props> = ({
+  onSearch,
+  listingsPerPage,
+  page,
+  refinements,
+}: Props) => {
   const [searchQuery, setSearchQuery] = React.useState("");
 
   const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -35,10 +41,12 @@ const Search: React.FC<Props> = ({ onSearch, listingsPerPage, page }) => {
   const search = _.debounce(
     async (searchQuery: string) => {
       try {
-        let response;
-        searchQuery
-          ? (response = await api.search(page, listingsPerPage, searchQuery))
-          : (response = await api.emptySearch(page, listingsPerPage));
+        const response = await getListings(
+          page,
+          listingsPerPage,
+          searchQuery,
+          refinements
+        );
         const searchResults = response.data;
         const totalCount = Number(response.headers["x-total-count"]);
         const totalPages = Math.ceil(totalCount / listingsPerPage);
