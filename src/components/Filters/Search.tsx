@@ -34,15 +34,19 @@ const Search: React.FC<Props> = ({ onSearch, listingsPerPage, page }) => {
 
   const search = _.debounce(
     async (searchQuery: string) => {
-      let response;
-      searchQuery
-        ? (response = await api.search(page, listingsPerPage, searchQuery))
-        : (response = await api.emptySearch(page, listingsPerPage));
-      const searchResults = response.data;
-      const totalCount = Number(response.headers["x-total-count"]);
-      const totalPages = Math.ceil(totalCount / listingsPerPage);
+      try {
+        let response;
+        searchQuery
+          ? (response = await api.search(page, listingsPerPage, searchQuery))
+          : (response = await api.emptySearch(page, listingsPerPage));
+        const searchResults = response.data;
+        const totalCount = Number(response.headers["x-total-count"]);
+        const totalPages = Math.ceil(totalCount / listingsPerPage);
 
-      onSearch(searchResults, totalPages, page);
+        onSearch(searchResults, totalPages, page);
+      } catch (error) {
+        console.error(error);
+      }
     },
     500,
     { leading: true, trailing: false }

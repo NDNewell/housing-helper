@@ -49,22 +49,27 @@ class Listings extends React.Component<{}, State> {
 
   // Get all possible amenities from each unit's amenities array for each listing
   getAvailableAmenities = async () => {
-    // Get all listings
-    const response = await api.getAllListings();
+    try {
+      // Get all listings
+      const response = await api.getAllListings();
 
-    // Extract all amenities from the listings
-    // Remove duplicates
-    const amenitiesSet = new Set<string>(
-      response.data.flatMap((listing: Listing) =>
-        listing.units.flatMap((unit) => unit.amenities)
-      )
-    );
+      // Extract all amenities from the listings
+      // Remove duplicates
+      const amenitiesSet = new Set<string>(
+        response.data.flatMap((listing: Listing) =>
+          listing.units.flatMap((unit) => unit.amenities)
+        )
+      );
 
-    // Convert the set to an array and sort it
-    const sortedAmenities = [...amenitiesSet].sort();
+      // Convert the set to an array and sort it
+      const sortedAmenities = [...amenitiesSet].sort();
 
-    // Set the available amenities in the state
-    this.setState({ availableAmenities: sortedAmenities });
+      // Set the available amenities in the state
+      this.setState({ availableAmenities: sortedAmenities });
+    } catch (error) {
+      // Handle the error here
+      console.error(error);
+    }
   };
 
   handlePageChange = ({ selected }: Page) => {
