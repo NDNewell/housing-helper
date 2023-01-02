@@ -3,6 +3,7 @@ import Pagination from "../Pagination/Pagination";
 import ListingCard from "../ListingCard/ListingCard";
 import Refinements from "../Filters/Refinements";
 import DropdownFilter from "../Filters/DropdownFilter";
+import api from "../../services/api";
 import Search from "../Filters/Search";
 import "./Listings.scss";
 
@@ -42,15 +43,27 @@ class Listings extends React.Component<{}, State> {
     selectedRefinements: [],
   };
 
+  componentDidMount() {
+    this.getAvailableAmenities();
+  }
+
   // Get all possible amenities from each unit's amenities array for each listing
-  getAvailableAmenities = (listingsData: Listing[]) => {
-    const amenitiesSet = new Set(
-      listingsData.flatMap((listing) =>
+  getAvailableAmenities = async () => {
+    // Get all listings
+    const response = await api.getAllListings();
+
+    // Extract all amenities from the listings
+    // Remove duplicates
+    const amenitiesSet = new Set<string>(
+      response.data.flatMap((listing: Listing) =>
         listing.units.flatMap((unit) => unit.amenities)
       )
     );
-    const amenities = Array.from(amenitiesSet);
-    const sortedAmenities = amenities.sort();
+
+    // Convert the set to an array and sort it
+    const sortedAmenities = [...amenitiesSet].sort();
+
+    // Set the available amenities in the state
     this.setState({ availableAmenities: sortedAmenities });
   };
 
@@ -73,19 +86,10 @@ class Listings extends React.Component<{}, State> {
       totalPages: totalPages,
       currentPage: page,
     });
-    this.getAvailableAmenities(searchResults);
   };
 
   handleRefinements = (refinements: string[]) => {
     this.setState({ selectedRefinements: refinements });
-    const refinementsSet = new Set(refinements);
-    const refinedListings = this.state.listings.filter((listing) =>
-      listing.units.some((unit) =>
-        unit.amenities.every((amenity) => refinementsSet.has(amenity))
-      )
-    );
-    console.log(refinedListings);
-    this.setState({ listings: refinedListings });
   };
 
   render() {
