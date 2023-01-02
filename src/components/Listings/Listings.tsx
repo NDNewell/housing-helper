@@ -3,7 +3,8 @@ import axios from "axios";
 import Pagination from "../Pagination/Pagination";
 import ListingCard from "../ListingCard/ListingCard";
 import DropdownFilter from "../Filters/DropdownFilter";
-import listingDataApi from "../../services/api";
+import Search from "../Filters/Search";
+import api from "../../services/api";
 import "./Listings.scss";
 
 import { Unit } from "../ListingCard/ListingCard";
@@ -16,8 +17,8 @@ export type Listing = {
 };
 
 type State = {
-  listings: Listing[];
   listingsData: Listing[];
+  listings: Listing[];
   currentPage: number;
   listingsPerPage: number;
   totalPages: number;
@@ -42,7 +43,7 @@ class Listings extends React.Component<{}, State> {
 
   getListings = (page: number) => {
     axios
-      .get(listingDataApi(page, this.state.listingsPerPage))
+      .get(api.listingsDataByPage(page, this.state.listingsPerPage))
       .then((response) => {
         const totalCount = Number(response.headers["x-total-count"]);
         this.setState({
@@ -60,6 +61,10 @@ class Listings extends React.Component<{}, State> {
 
   handleFilter = (filteredListings: Listing[]) => {
     this.setState({ listings: filteredListings });
+  };
+
+  handleSearch = (searchedListings: Listing[]) => {
+    this.setState({ listings: searchedListings });
   };
 
   render() {
@@ -83,6 +88,10 @@ class Listings extends React.Component<{}, State> {
               default: false,
             },
           ]}
+        />
+        <Search
+          onSearch={this.handleSearch}
+          listingsPerPage={this.state.listingsPerPage}
         />
         {this.state.listings.map((listing) => (
           <ListingCard
