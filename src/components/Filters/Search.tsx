@@ -1,6 +1,5 @@
 import * as React from "react";
 import _ from "lodash";
-import axios from "axios";
 import api from "../../services/api";
 import { Listing } from "../Listings/Listings";
 
@@ -33,24 +32,21 @@ const Search: React.FC<Props> = ({ onSearch, listingsPerPage, page }) => {
     setSearchQuery((event.target as HTMLInputElement).value);
   };
 
-  const search = _.debounce((searchQuery: string) => {
-    axios
-      .get(
-        searchQuery
-          ? api.search(page, listingsPerPage, searchQuery)
-          : api.emptySearch(page, listingsPerPage)
-      )
-      .then((response) => {
-        const searchResults = response.data;
-        const totalCount = Number(response.headers["x-total-count"]);
-        const totalPages = Math.ceil(totalCount / listingsPerPage);
+  const search = _.debounce(
+    async (searchQuery: string) => {
+      let response;
+      searchQuery
+        ? (response = await api.search(page, listingsPerPage, searchQuery))
+        : (response = await api.emptySearch(page, listingsPerPage));
+      const searchResults = response.data;
+      const totalCount = Number(response.headers["x-total-count"]);
+      const totalPages = Math.ceil(totalCount / listingsPerPage);
 
-        onSearch(searchResults, totalPages, page);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, 500);
+      onSearch(searchResults, totalPages, page);
+    },
+    500,
+    { leading: true, trailing: false }
+  );
 
   React.useEffect(() => {
     search(searchQuery);
