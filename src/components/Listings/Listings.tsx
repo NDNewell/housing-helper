@@ -94,7 +94,7 @@ class Listings extends React.Component<{}, State> {
             units={listing.units}
           />
         ))}
-        {this.state.listings.length > 1 && (
+        {this.state.totalPages > 1 && (
           <Pagination
             totalPages={this.state.totalPages}
             onPageChange={this.handlePageChange}
