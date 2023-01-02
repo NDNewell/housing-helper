@@ -24,25 +24,10 @@ const ListingCard = ({ id, name, picture, units }: Props) => {
   >([]);
   const [amenities, setAmenities] = React.useState<string[]>([]);
 
-  const removeRandomAmenities = (amenities: string[]) => {
-    // Leave at least 3 amenities
-    if (amenities.length > 3) {
-      // Generate a random number between 1 and the number of amenities - 3
-      const numToRemove = Math.floor(
-        Math.random() * (amenities.length - 3) + 1
-      );
-      // Remove the random number of amenities from the array
-      amenities.splice(0, numToRemove);
-    }
-    return amenities;
-  };
-
   React.useEffect(() => {
     const allAmenities = units.flatMap((unit) => unit.amenities);
-    const deduplicatedAmenities = Array.from(new Set(allAmenities));
-    const randomizedAmenities = removeRandomAmenities(deduplicatedAmenities);
-    const sortedAmenities = randomizedAmenities.sort();
-    setAmenities(sortedAmenities);
+    const sortedAmenities = allAmenities.sort();
+    setAmenities(Array.from(new Set(sortedAmenities)));
   }, [units]);
 
   // Use effect hook that runs when the units prop changes

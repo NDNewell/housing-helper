@@ -81,9 +81,10 @@ class Listings extends React.Component<{}, State> {
     const refinementsSet = new Set(refinements);
     const refinedListings = this.state.listings.filter((listing) =>
       listing.units.some((unit) =>
-        unit.amenities.some((amenity) => refinementsSet.has(amenity))
+        unit.amenities.every((amenity) => refinementsSet.has(amenity))
       )
     );
+    console.log(refinedListings);
     this.setState({ listings: refinedListings });
   };
 
