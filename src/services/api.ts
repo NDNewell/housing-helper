@@ -6,6 +6,9 @@ const listingsAllData = () => "http://localhost:3001/listings";
 const search = (searchTerm: string, listingsPerPage: number) =>
   `http://localhost:3001/listings?name_like=${searchTerm}*&_limit=${listingsPerPage}`;
 
-const api = { listingsDataByPage, listingsAllData, search };
+const emptySearch = (listingsPerPage: number) =>
+  `http://localhost:3001/listings?_limit=${listingsPerPage}`;
+
+const api = { listingsDataByPage, listingsAllData, search, emptySearch };
 
 export default api;
