@@ -23,6 +23,7 @@ type State = {
   totalPages: number;
   searchQuery: string;
   availableAmenities: string[];
+  selectedRefinements: string[];
 };
 
 type Page = {
@@ -38,6 +39,7 @@ class Listings extends React.Component<{}, State> {
     totalPages: 0,
     searchQuery: "",
     availableAmenities: [],
+    selectedRefinements: [],
   };
 
   // Get all possible amenities from each unit's amenities array for each listing
@@ -75,7 +77,14 @@ class Listings extends React.Component<{}, State> {
   };
 
   handleRefinements = (refinements: string[]) => {
-    console.log(refinements);
+    this.setState({ selectedRefinements: refinements });
+    const refinementsSet = new Set(refinements);
+    const refinedListings = this.state.listings.filter((listing) =>
+      listing.units.some((unit) =>
+        unit.amenities.some((amenity) => refinementsSet.has(amenity))
+      )
+    );
+    this.setState({ listings: refinedListings });
   };
 
   render() {
