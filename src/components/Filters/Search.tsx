@@ -11,13 +11,27 @@ type Props = {
 const Search: React.FC<Props> = ({ onSearch, listingsPerPage }) => {
   const [searchValue, setSearchValue] = React.useState("");
 
-  const handleSearchSubmit = () => {
+  const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     search(searchValue);
+  };
+
+  const handleClear = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    setSearchValue("");
+    search("");
   };
 
   const onChange = (event: React.FormEvent<HTMLInputElement>) => {
     event.preventDefault();
     setSearchValue((event.target as HTMLInputElement).value);
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      search(searchValue);
+    }
   };
 
   const search = (query: string) => {
@@ -43,10 +57,14 @@ const Search: React.FC<Props> = ({ onSearch, listingsPerPage }) => {
         <input
           type="text"
           onChange={onChange}
+          onKeyDown={handleKeyDown}
           placeholder="Search for a property"
           value={searchValue}
         ></input>
         <button type="submit">Search</button>
+        <button type="button" onClick={handleClear} disabled={!searchValue}>
+          Clear
+        </button>
       </form>
     </div>
   );
