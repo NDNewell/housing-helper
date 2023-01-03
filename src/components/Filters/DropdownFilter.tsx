@@ -1,75 +1,41 @@
 import * as React from "react";
-import _ from "lodash";
-import { Listing } from "../Listings/Listings";
 
-export type Filter = {
+export type SelectOption = {
   label: string;
   value: string;
-  filterProperty: string;
   default: boolean;
 };
 
 type Props = {
-  filterItems: Listing[];
-  onFilter: (filterItems: Listing[]) => void;
-  filters: Filter[];
+  onSelect: (selectValue: number | string) => void;
+  selectOptions: SelectOption[];
 };
 
-const DropdownFilter: React.FC<Props> = ({
-  filterItems,
-  filters,
-  onFilter,
-}) => {
-  const filterTypeDefault = filters.filter((item) => item.default === true)[0]
-    .value;
-  const [selectState, setState] = React.useState(filterTypeDefault);
+const Select: React.FC<Props> = ({ onSelect, selectOptions }) => {
+  const selectDefaultValue = selectOptions.filter(
+    (item) => item.default === true
+  )[0].value;
+  const [selectState, setState] = React.useState(selectDefaultValue);
+
   const updateSelectState = (newValue: string) => setState(newValue);
 
-  const handleFilter = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const filterType = event.target.value;
-    updateSelectState(filterType);
-    const filteredItems = sortFilterItems(filterItems, filterType);
-    onFilter(filteredItems);
+  const handleSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectValue = event.target.value;
+    updateSelectState(selectValue);
+    onSelect(selectValue);
   };
-
-  const sortFilterItems = (filterItems: Listing[], filterType: string) => {
-    switch (filterType) {
-      case "az":
-        return _.sortBy(
-          filterItems,
-          filters.filter((item) => item.value === "az")[0].filterProperty
-        );
-      case "za":
-        return _.sortBy(
-          filterItems,
-          filters.filter((item) => item.value === "az")[0].filterProperty
-        ).reverse();
-      default:
-        return filterItems;
-    }
-  };
-
-  const filterListings = React.useCallback(
-    (filterType: string) => {
-      updateSelectState(filterTypeDefault);
-      const filteredItems = sortFilterItems(filterItems, filterType);
-      onFilter(filteredItems);
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [filterItems, filterTypeDefault, onFilter]
-  );
 
   React.useEffect(() => {
-    filterListings(filterTypeDefault);
-  }, [filterTypeDefault, filterListings]);
+    updateSelectState(selectDefaultValue);
+  }, [selectDefaultValue]);
 
   return (
-    <div className="filter">
-      <label htmlFor="filter">Sort by: </label>
-      <select id="filter" value={selectState} onChange={handleFilter}>
-        {filters.map((filter, index) => (
-          <option key={index} value={filter.value}>
-            {filter.label}
+    <div className="select">
+      <label htmlFor="select">Sort by: </label>
+      <select id="select" value={selectState} onChange={handleSelect}>
+        {selectOptions.map((option, index) => (
+          <option key={index} value={option.value}>
+            {option.label}
           </option>
         ))}
       </select>
@@ -77,4 +43,4 @@ const DropdownFilter: React.FC<Props> = ({
   );
 };
 
-export default DropdownFilter;
+export default Select;
