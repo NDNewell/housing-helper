@@ -6,7 +6,7 @@ const getListings = (
   searchQuery: string | undefined = undefined,
   refinements: string[] | undefined = undefined
 ) => {
-  let endpoint = `http://localhost:3001/search`;
+  let endpoint = `http://localhost:3001/listings`;
   let queryParams = "";
   if (page && listingsPerPage) {
     queryParams += `&_page=${page}&_limit=${listingsPerPage}`;
@@ -21,7 +21,7 @@ const getListings = (
       .join(", ");
     queryParams += `&_where={"units.amenities":{"$all":[${refinementsQuery}]}}`;
   }
-  // http://localhost:3001/listings?_page=1&_limit=5&_where={"$all":["accessible bathroom","air conditioning","elevator","pet friendly]}
+  // http://localhost:3001/search?name_like=as*
   if (queryParams) {
     endpoint += `?${queryParams.substring(1)}`;
   }
