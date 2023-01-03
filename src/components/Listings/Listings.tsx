@@ -52,20 +52,12 @@ class Listings extends React.Component<{}, State> {
     try {
       // Get all listings
       const response = await api.getAmenities();
-
-      // Extract all amenities from the listings
-      // Remove duplicates
-      const amenitiesSet = new Set<string>(
-        response.data.flatMap((listing: Listing) =>
-          listing.units.flatMap((unit) => unit.amenities)
-        )
+      const amenities = response.data.filter(
+        (amenity: string) => amenity !== null
       );
 
-      // Convert the set to an array and sort it
-      const sortedAmenities = [...amenitiesSet].sort();
-
       // Set the available amenities in the state
-      this.setState({ availableAmenities: sortedAmenities });
+      this.setState({ availableAmenities: amenities });
     } catch (error) {
       // Handle the error here
       console.error(error);
