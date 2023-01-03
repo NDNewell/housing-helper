@@ -47,9 +47,8 @@ const Search: React.FC<Props> = ({
           searchQuery,
           refinements
         );
-        const searchResults = response.data;
-        const totalCount = Number(response.headers["x-total-count"]);
-        const totalPages = Math.ceil(totalCount / listingsPerPage);
+        const searchResults = response.data.listings;
+        const totalPages = response.data.meta.totalPages;
 
         onSearch(searchResults, totalPages, page);
       } catch (error) {

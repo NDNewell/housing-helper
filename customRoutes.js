@@ -41,8 +41,24 @@ const customRoutes = (app) => {
     // Slice the results to get the paginated listings
     const paginatedListings = filteredListings.slice(startIndex, endIndex);
 
-    // Return the paginated listings
-    res.json(paginatedListings);
+    // Calculate the next and previous page numbers
+    const nextPage = parsedPage + 1;
+    const prevPage = parsedPage - 1;
+
+    // Create the meta object for the pagination
+    const meta = {
+      currentPage: parsedPage,
+      nextPage:
+        nextPage <= Math.ceil(filteredListings.length / parsedPageLimit)
+          ? nextPage
+          : null,
+      prevPage: prevPage > 0 ? prevPage : null,
+      totalPages: Math.ceil(filteredListings.length / parsedPageLimit),
+      totalResults: filteredListings.length,
+    };
+
+    // Return the paginated listings with the meta object
+    res.json({ listings: paginatedListings, meta });
   });
 
   app.get("/listings/amenities", (req, res) => {
@@ -60,24 +76,6 @@ const customRoutes = (app) => {
     // Convert the set to an array and return it
     allAmenities = Array.from(allAmenities);
     res.json(allAmenities);
-  });
-
-  app.get("/listings/search/amenities", (req, res) => {
-    // Read the file
-    const data = JSON.parse(fs.readFileSync("db.json", "utf8"));
-
-    // Get the query parameters from the request
-    const { amenities } = req.query;
-
-    // Filter the listings by amenities
-    const filteredListings = data.listings.filter((listing) => {
-      return listing.units.some((unit) => {
-        return unit.amenities.includes(amenities);
-      });
-    });
-
-    // Return the filtered listings
-    res.json(filteredListings);
   });
 };
 
