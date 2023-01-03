@@ -116,7 +116,7 @@ class Listings extends React.Component<{}, State> {
           onSearch={this.handleSearch}
           listingsPerPage={this.state.listingsPerPage}
           page={this.state.currentPage}
-          refinements={this.state.selectedRefinements}
+          refinements={this.state.selectedRefinements.join(",")}
         />
         <Refinements
           refinements={this.state.availableAmenities}

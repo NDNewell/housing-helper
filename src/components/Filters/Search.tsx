@@ -11,7 +11,7 @@ type Props = {
   ) => void;
   listingsPerPage: number;
   page: number;
-  refinements: string[];
+  refinements: string;
 };
 
 const Search: React.FC<Props> = ({
