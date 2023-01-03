@@ -12,6 +12,8 @@
     "@types/react-dom": "^18.0.10",
     "axios": "^1.2.1",
     "concurrently": "^7.6.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
     "lodash": "^4.17.21",
     "node-sass": "^7.0.3",
     "react": "^18.2.0",
@@ -29,7 +31,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "sass": "nodemon --exec 'node-sass src/ -o src/ --watch' --ignore src/",
-    "server": "json-server db.json --port 3001",
+    "server": "node customRoutes.js",
     "dev": "concurrently \"npm start\" \"npm run sass\" \"npm run server\""
   },
   "eslintConfig": {
@@ -53,7 +55,6 @@
   "devDependencies": {
     "@types/lodash": "^4.14.191",
     "@types/react-autosuggest": "^10.1.5",
-    "json-server": "^0.17.1",
     "nodemon": "^2.0.20"
   }
 }

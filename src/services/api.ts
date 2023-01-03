@@ -1,31 +1,43 @@
 import axios from "axios";
 
-const getListings = (
-  page: number | undefined = undefined,
-  listingsPerPage: number | undefined = undefined,
-  searchQuery: string | undefined = undefined,
-  refinements: string[] | undefined = undefined
+interface ListingSearchParams {
+  page?: number;
+  listingsPerPage?: number;
+  searchQuery?: string;
+  refinements?: {
+    amenities: string[];
+  };
+}
+
+const searchListings = (
+  page: number,
+  listingsPerPage: number,
+  searchQuery = "",
+  refinements: string[]
 ) => {
-  let endpoint = `http://localhost:3001/listings`;
-  let queryParams = "";
+  const params: ListingSearchParams = {};
+
   if (page && listingsPerPage) {
-    queryParams += `&_page=${page}&_limit=${listingsPerPage}`;
-  }
-  if (searchQuery) {
-    queryParams += `&name_like=${searchQuery}*`;
+    params.page = page;
+    params.listingsPerPage = listingsPerPage;
   }
 
-  if (refinements && refinements.length > 0) {
-    const refinementsQuery = refinements
-      .map((refinement) => `"${refinement}"`)
-      .join(", ");
-    queryParams += `&_where={"units.amenities":{"$all":[${refinementsQuery}]}}`;
+  if (searchQuery) {
+    params.searchQuery = searchQuery;
   }
-  // http://localhost:3001/search?name_like=as*
-  if (queryParams) {
-    endpoint += `?${queryParams.substring(1)}`;
+
+  if (refinements.length > 0) {
+    params.refinements = {
+      amenities: refinements,
+    };
   }
-  return axios.get(endpoint);
+
+  return axios.get(`http://localhost:3001/listings/search`, { params });
 };
 
-export default getListings;
+const getAmenities = () =>
+  axios.get("http://localhost:3001/listings/amenities");
+
+const api = { searchListings, getAmenities };
+
+export default api;

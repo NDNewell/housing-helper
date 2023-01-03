@@ -3,7 +3,7 @@ import Pagination from "../Pagination/Pagination";
 import ListingCard from "../ListingCard/ListingCard";
 import Refinements from "../Filters/Refinements";
 import DropdownFilter from "../Filters/DropdownFilter";
-import getListings from "../../services/api";
+import api from "../../services/api";
 import Search from "../Filters/Search";
 import "./Listings.scss";
 
@@ -51,7 +51,7 @@ class Listings extends React.Component<{}, State> {
   getAvailableAmenities = async () => {
     try {
       // Get all listings
-      const response = await getListings();
+      const response = await api.getAmenities();
 
       // Extract all amenities from the listings
       // Remove duplicates

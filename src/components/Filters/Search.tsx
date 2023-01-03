@@ -1,6 +1,6 @@
 import * as React from "react";
 import _ from "lodash";
-import getListings from "../../services/api";
+import api from "../../services/api";
 import { Listing } from "../Listings/Listings";
 
 type Props = {
@@ -41,7 +41,7 @@ const Search: React.FC<Props> = ({
   const search = _.debounce(
     async (searchQuery: string) => {
       try {
-        const response = await getListings(
+        const response = await api.searchListings(
           page,
           listingsPerPage,
           searchQuery,
