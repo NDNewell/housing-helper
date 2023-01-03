@@ -16,9 +16,11 @@ const customRoutes = (app) => {
 
     // Filter the listings by amenities if provided
     if (amenities) {
+      const amenitiesList = amenities.split(",");
+      const amenitiesSet = new Set(amenitiesList);
       filteredListings = filteredListings.filter((listing) => {
         return listing.units.some((unit) => {
-          return unit.amenities.includes(amenities);
+          return unit.amenities.every((amenity) => amenitiesSet.has(amenity));
         });
       });
     }

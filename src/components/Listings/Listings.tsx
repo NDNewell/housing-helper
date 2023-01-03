@@ -78,6 +78,7 @@ class Listings extends React.Component<{}, State> {
     totalPages: number,
     page: number
   ) => {
+    console.log(searchResults);
     this.setState({
       listingsData: searchResults,
       totalPages: totalPages,
