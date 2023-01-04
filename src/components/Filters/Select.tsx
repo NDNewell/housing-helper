@@ -7,7 +7,7 @@ export type SelectOption = {
 };
 
 type Props = {
-  onSelect: (selectValue: number | string) => void;
+  onSelect: (selectValue: string) => void;
   selectOptions: SelectOption[];
 };
 
@@ -24,10 +24,6 @@ const Select: React.FC<Props> = ({ onSelect, selectOptions }) => {
     updateSelectState(selectValue);
     onSelect(selectValue);
   };
-
-  React.useEffect(() => {
-    updateSelectState(selectDefaultValue);
-  }, [selectDefaultValue]);
 
   return (
     <div className="select">

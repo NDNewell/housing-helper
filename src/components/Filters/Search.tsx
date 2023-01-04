@@ -9,15 +9,15 @@ type Props = {
     totalPages: number,
     page: number
   ) => void;
-  listingsPerPage: number;
   page: number;
+  listingsPerPage: number;
   refinements: string;
 };
 
 const Search: React.FC<Props> = ({
   onSearch,
-  listingsPerPage,
   page,
+  listingsPerPage,
   refinements,
 }: Props) => {
   const [searchQuery, setSearchQuery] = React.useState("");

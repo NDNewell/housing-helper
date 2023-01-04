@@ -1,8 +1,9 @@
 import * as React from "react";
 import Pagination from "../Pagination/Pagination";
+import _ from "lodash";
 import ListingCard from "../ListingCard/ListingCard";
 import Refinements from "../Filters/Refinements";
-import DropdownFilter from "../Filters/DropdownFilter";
+import SortSelect from "../Filters/Select";
 import api from "../../services/api";
 import Search from "../Filters/Search";
 import "./Listings.scss";
@@ -69,8 +70,25 @@ class Listings extends React.Component<{}, State> {
     this.setState({ currentPage: selectedPage });
   };
 
-  handleFilter = (filteredListings: Listing[]) => {
-    this.setState({ listings: filteredListings });
+  handleSortSelect = async (selectValue: string) => {
+    const { currentPage, listingsPerPage, searchQuery, selectedRefinements } =
+      this.state;
+    try {
+      // Get all listings
+      const response = await api.searchListings(
+        currentPage,
+        listingsPerPage,
+        searchQuery,
+        selectedRefinements.join(","),
+        selectValue
+      );
+
+      // Set the available amenities in the state
+      this.setState({ listings: response.data.listings });
+    } catch (error) {
+      // Handle the error here
+      console.error(error);
+    }
   };
 
   handleSearch = (
@@ -94,20 +112,17 @@ class Listings extends React.Component<{}, State> {
     return (
       <div className="listings">
         <h2 className="listings__heading">Affordable Housing Listings</h2>
-        <DropdownFilter
-          filterItems={this.state.listingsData}
-          onFilter={this.handleFilter}
-          filters={[
+        <SortSelect
+          onSelect={this.handleSortSelect}
+          selectOptions={[
             {
               label: "A-Z",
               value: "az",
-              filterProperty: "name",
               default: true,
             },
             {
               label: "Z-A",
               value: "za",
-              filterProperty: "name",
               default: false,
             },
           ]}

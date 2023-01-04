@@ -5,13 +5,15 @@ interface ListingSearchParams {
   listingsPerPage?: number;
   searchQuery?: string;
   amenities?: string;
+  sort?: string;
 }
 
 const searchListings = (
   page: number,
   listingsPerPage: number,
   searchQuery = "",
-  refinements: string
+  refinements: string,
+  sort = "asc"
 ) => {
   const params: ListingSearchParams = {};
 
@@ -26,6 +28,10 @@ const searchListings = (
   if (page && listingsPerPage) {
     params.page = page;
     params.listingsPerPage = listingsPerPage;
+  }
+
+  if (sort) {
+    params.sort = sort;
   }
 
   return axios.get(`http://localhost:3001/listings/search`, { params });

@@ -8,7 +8,7 @@ const customRoutes = (app) => {
     const data = JSON.parse(fs.readFileSync("db.json", "utf8"));
 
     // Get the query parameters from the request
-    const { amenities, searchQuery, page, pageLimit } = req.query;
+    const { amenities, searchQuery, page, pageLimit, sort } = req.query;
     const defaultPage = 1;
     const defaultPageLimit = 10;
 
@@ -32,6 +32,24 @@ const customRoutes = (app) => {
       filteredListings = filteredListings.filter((listing) => {
         return listing.name.toLowerCase().includes(searchQuery.toLowerCase());
       });
+    }
+
+    // Sort the listings according to specific sort param
+    if (sort) {
+      switch (sort) {
+        case "asc":
+          filteredListings = filteredListings.sort((a, b) =>
+            a.name.localeCompare(b.name)
+          );
+          break;
+        case "desc":
+          filteredListings = filteredListings.sort((a, b) =>
+            b.name.localeCompare(a.name)
+          );
+          break;
+        default:
+          break;
+      }
     }
 
     // Use default values if no page and pageLimit query strings are provided
