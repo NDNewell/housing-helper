@@ -2,15 +2,15 @@ import axios from "axios";
 
 interface ListingSearchParams {
   page?: number;
-  listingsPerPage?: number;
+  pageLimit?: number;
   searchQuery?: string;
-  amenities?: string;
+  refinements?: string;
   sort?: string;
 }
 
 const searchListings = (
   page: number,
-  listingsPerPage: number,
+  pageLimit: number,
   searchQuery = "",
   refinements: string,
   sort = "asc"
@@ -22,12 +22,12 @@ const searchListings = (
   }
 
   if (refinements.length > 0) {
-    params.amenities = refinements;
+    params.refinements = refinements;
   }
 
-  if (page && listingsPerPage) {
+  if (page && pageLimit) {
     params.page = page;
-    params.listingsPerPage = listingsPerPage;
+    params.pageLimit = pageLimit;
   }
 
   if (sort) {

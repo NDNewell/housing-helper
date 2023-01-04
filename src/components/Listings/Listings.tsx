@@ -20,7 +20,7 @@ export type ListItem = {
 type State = {
   listItems: ListItem[];
   currentPage: number;
-  listItemsPerPage: number;
+  pageLimit: number;
   totalPages: number;
   searchQuery: string;
   availableRefinements: string[];
@@ -38,7 +38,7 @@ class Listings extends React.Component<{}, State> {
     availableRefinements: [],
     selectedRefinements: [],
     currentPage: 1,
-    listItemsPerPage: 5,
+    pageLimit: 5,
     totalPages: 0,
   };
 
@@ -69,17 +69,13 @@ class Listings extends React.Component<{}, State> {
   };
 
   handleSortSelect = async (selectValue: string) => {
-    const {
-      currentPage,
-      listItemsPerPage: listingsPerPage,
-      searchQuery,
-      selectedRefinements,
-    } = this.state;
+    const { currentPage, pageLimit, searchQuery, selectedRefinements } =
+      this.state;
     try {
       // Get all listings
       const response = await api.searchListings(
         currentPage,
-        listingsPerPage,
+        pageLimit,
         searchQuery,
         selectedRefinements.join(","),
         selectValue
@@ -129,7 +125,7 @@ class Listings extends React.Component<{}, State> {
         />
         <Search
           onSearch={this.handleSearch}
-          listingsPerPage={this.state.listItemsPerPage}
+          listingsPerPage={this.state.pageLimit}
           page={this.state.currentPage}
           refinements={this.state.selectedRefinements.join(",")}
         />
