@@ -5,6 +5,7 @@ import { ListItem } from "../Listings/Listings";
 
 type Props = {
   onSearch: (
+    searchQuery: string,
     searchResults: ListItem[],
     totalPages: number,
     page: number
@@ -50,7 +51,7 @@ const Search: React.FC<Props> = ({
         const searchResults = response.data.listings;
         const totalPages = response.data.meta.total_pages;
 
-        onSearch(searchResults, totalPages, page);
+        onSearch(searchQuery, searchResults, totalPages, page);
       } catch (error) {
         console.error(error);
       }

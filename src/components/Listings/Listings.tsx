@@ -95,22 +95,6 @@ class Listings extends React.Component<{}, State> {
     }
   };
 
-  handleSearch = (
-    searchResults: ListItem[],
-    totalPages: number,
-    page: number
-  ) => {
-    this.setState({
-      listItems: searchResults,
-      totalPages: totalPages,
-      currentPage: page,
-    });
-  };
-
-  handleRefinements = (refinements: string[]) => {
-    this.setState({ selectedRefinements: refinements });
-  };
-
   handlePageLimitSelect = async (selectValue: string) => {
     const { defaultPage, searchQuery, selectedRefinements, sortOrder } =
       this.state;
@@ -137,6 +121,24 @@ class Listings extends React.Component<{}, State> {
     } catch (error) {
       console.error(error);
     }
+  };
+
+  handleSearch = (
+    searchQuery: string,
+    searchResults: ListItem[],
+    totalPages: number,
+    page: number
+  ) => {
+    this.setState({
+      searchQuery: searchQuery,
+      listItems: searchResults,
+      totalPages: totalPages,
+      currentPage: page,
+    });
+  };
+
+  handleRefinements = (refinements: string[]) => {
+    this.setState({ selectedRefinements: refinements });
   };
 
   render() {

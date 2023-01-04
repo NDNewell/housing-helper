@@ -12,7 +12,7 @@ const searchListings = (
   page?: number,
   pageLimit?: number,
   searchQuery = "",
-  refinements?: string,
+  refinements = "",
   sort?: string
 ) => {
   const params: ListItemSearchParams = {};
@@ -21,7 +21,7 @@ const searchListings = (
     params.searchQuery = searchQuery;
   }
 
-  if (refinements && refinements.length > 0) {
+  if (refinements.length > 0) {
     params.refinements = refinements;
   }
 
