@@ -40,6 +40,6 @@ const searchListings = (
 const getAmenities = () =>
   axios.get("http://localhost:3001/listings/amenities");
 
-const api = { searchListings, getAmenities };
+const api = { searchListings, getRefinements: getAmenities };
 
 export default api;

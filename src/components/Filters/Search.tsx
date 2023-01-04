@@ -1,11 +1,11 @@
 import * as React from "react";
 import _ from "lodash";
 import api from "../../services/api";
-import { Listing } from "../Listings/Listings";
+import { ListItem } from "../Listings/Listings";
 
 type Props = {
   onSearch: (
-    searchResults: Listing[],
+    searchResults: ListItem[],
     totalPages: number,
     page: number
   ) => void;

@@ -10,7 +10,7 @@ import "./Listings.scss";
 
 import { Unit } from "../ListingCard/ListingCard";
 
-export type Listing = {
+export type ListItem = {
   id: string;
   name: string;
   picture: string;
@@ -18,13 +18,12 @@ export type Listing = {
 };
 
 type State = {
-  listingsData: Listing[];
-  listings: Listing[];
+  listItems: ListItem[];
   currentPage: number;
-  listingsPerPage: number;
+  listItemsPerPage: number;
   totalPages: number;
   searchQuery: string;
-  availableAmenities: string[];
+  availableRefinements: string[];
   selectedRefinements: string[];
 };
 
@@ -34,31 +33,30 @@ type Page = {
 
 class Listings extends React.Component<{}, State> {
   state: State = {
-    listingsData: [],
-    listings: [],
-    currentPage: 1,
-    listingsPerPage: 5,
-    totalPages: 0,
+    listItems: [],
     searchQuery: "",
-    availableAmenities: [],
+    availableRefinements: [],
     selectedRefinements: [],
+    currentPage: 1,
+    listItemsPerPage: 5,
+    totalPages: 0,
   };
 
   componentDidMount() {
-    this.getAvailableAmenities();
+    this.getAvailableRefinements();
   }
 
   // Get all possible amenities from each unit's amenities array for each listing
-  getAvailableAmenities = async () => {
+  getAvailableRefinements = async () => {
     try {
       // Get all listings
-      const response = await api.getAmenities();
-      const amenities = response.data.filter(
-        (amenity: string) => amenity !== null
+      const response = await api.getRefinements();
+      const refinements = response.data.filter(
+        (refinement: string) => refinement !== null
       );
 
       // Set the available amenities in the state
-      this.setState({ availableAmenities: amenities });
+      this.setState({ availableRefinements: refinements });
     } catch (error) {
       // Handle the error here
       console.error(error);
@@ -71,8 +69,12 @@ class Listings extends React.Component<{}, State> {
   };
 
   handleSortSelect = async (selectValue: string) => {
-    const { currentPage, listingsPerPage, searchQuery, selectedRefinements } =
-      this.state;
+    const {
+      currentPage,
+      listItemsPerPage: listingsPerPage,
+      searchQuery,
+      selectedRefinements,
+    } = this.state;
     try {
       // Get all listings
       const response = await api.searchListings(
@@ -83,8 +85,7 @@ class Listings extends React.Component<{}, State> {
         selectValue
       );
 
-      // Set the available amenities in the state
-      this.setState({ listings: response.data.listings });
+      this.setState({ listItems: response.data.listings });
     } catch (error) {
       // Handle the error here
       console.error(error);
@@ -92,13 +93,12 @@ class Listings extends React.Component<{}, State> {
   };
 
   handleSearch = (
-    searchResults: Listing[],
+    searchResults: ListItem[],
     totalPages: number,
     page: number
   ) => {
-    console.log(searchResults);
     this.setState({
-      listingsData: searchResults,
+      listItems: searchResults,
       totalPages: totalPages,
       currentPage: page,
     });
@@ -129,15 +129,15 @@ class Listings extends React.Component<{}, State> {
         />
         <Search
           onSearch={this.handleSearch}
-          listingsPerPage={this.state.listingsPerPage}
+          listingsPerPage={this.state.listItemsPerPage}
           page={this.state.currentPage}
           refinements={this.state.selectedRefinements.join(",")}
         />
         <Refinements
-          refinements={this.state.availableAmenities}
+          refinements={this.state.availableRefinements}
           onSave={this.handleRefinements}
         />
-        {this.state.listings.map((listing) => (
+        {this.state.listItems.map((listing) => (
           <ListingCard
             key={listing.id}
             id={listing.id}
