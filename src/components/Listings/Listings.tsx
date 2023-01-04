@@ -1,6 +1,5 @@
 import * as React from "react";
 import Pagination from "../Pagination/Pagination";
-import _ from "lodash";
 import ListingCard from "../ListingCard/ListingCard";
 import Refinements from "../Filters/Refinements";
 import SortSelect from "../Filters/Select";
@@ -81,6 +80,7 @@ class Listings extends React.Component<{}, State> {
         selectValue
       );
 
+      console.log(response.data.listings);
       this.setState({ listItems: response.data.listings });
     } catch (error) {
       // Handle the error here
@@ -113,12 +113,12 @@ class Listings extends React.Component<{}, State> {
           selectOptions={[
             {
               label: "A-Z",
-              value: "az",
+              value: "asc",
               default: true,
             },
             {
               label: "Z-A",
-              value: "za",
+              value: "desc",
               default: false,
             },
           ]}

@@ -36,20 +36,13 @@ const customRoutes = (app) => {
 
     // Sort the listings according to specific sort param
     if (sort) {
-      switch (sort) {
-        case "asc":
-          filteredListItems = filteredListItems.sort((a, b) =>
-            a.name.localeCompare(b.name)
-          );
-          break;
-        case "desc":
-          filteredListItems = filteredListItems.sort((a, b) =>
-            b.name.localeCompare(a.name)
-          );
-          break;
-        default:
-          break;
-      }
+      filteredListItems = filteredListItems.sort((a, b) => {
+        if (sort === "asc") {
+          return a.name.localeCompare(b.name);
+        } else {
+          return b.name.localeCompare(a.name);
+        }
+      });
     }
 
     // Use default values if no page and pageLimit query strings are provided
