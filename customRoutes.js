@@ -8,7 +8,13 @@ const customRoutes = (app) => {
     const data = JSON.parse(fs.readFileSync("db.json", "utf8"));
 
     // Get the query parameters from the request
-    const { refinements, searchQuery, page, pageLimit, sort } = req.query;
+    const {
+      refinements,
+      searchQuery,
+      page,
+      pageLimit,
+      sort = "asc",
+    } = req.query;
     const defaultPage = 1;
     const defaultPageLimit = 10;
 

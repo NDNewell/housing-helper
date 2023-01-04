@@ -3,13 +3,19 @@ import PaginateComp from "react-paginate";
 import "./Pagination.scss";
 
 type Props = {
+  currentPage: number;
   totalPages: number;
   onPageChange: (selectedItem: any) => void;
 };
-const Pagination: React.FC<Props> = ({ totalPages, onPageChange }) => {
+const Pagination: React.FC<Props> = ({
+  currentPage,
+  totalPages,
+  onPageChange,
+}) => {
   return (
     <div className="pagination">
       <PaginateComp
+        forcePage={currentPage === 0 ? currentPage : currentPage - 1}
         pageCount={totalPages}
         pageRangeDisplayed={10}
         marginPagesDisplayed={1}

@@ -19,8 +19,8 @@ export type ListItem = {
 
 type State = {
   listItems: ListItem[];
+  defaultPage: number;
   currentPage: number;
-  pageDefault: number;
   pageLimit: number;
   totalPages: number;
   searchQuery: string;
@@ -39,11 +39,11 @@ class Listings extends React.Component<{}, State> {
     searchQuery: "",
     availableRefinements: [],
     selectedRefinements: [],
+    defaultPage: 1,
     currentPage: 1,
-    pageDefault: 1,
     pageLimit: 5,
     totalPages: 0,
-    sortOrder: "asc",
+    sortOrder: "",
   };
 
   componentDidMount() {
@@ -69,13 +69,14 @@ class Listings extends React.Component<{}, State> {
   };
 
   handleSortSelect = async (selectValue: string) => {
-    const sortOrder = selectValue;
-    this.setState({ sortOrder });
-    const { pageDefault, pageLimit, searchQuery, selectedRefinements } =
+    const { defaultPage, pageLimit, searchQuery, selectedRefinements } =
       this.state;
+    const sortOrder = selectValue;
+
+    this.setState({ sortOrder });
     try {
       const response = await api.searchListings(
-        pageDefault,
+        defaultPage,
         pageLimit,
         searchQuery,
         selectedRefinements.join(","),
@@ -111,23 +112,28 @@ class Listings extends React.Component<{}, State> {
   };
 
   handlePageLimitSelect = async (selectValue: string) => {
-    const pageLimit = parseInt(selectValue);
-    this.setState({ pageLimit });
-    const { pageDefault, searchQuery, selectedRefinements, sortOrder } =
+    const { defaultPage, searchQuery, selectedRefinements, sortOrder } =
       this.state;
+    const pageLimit = parseInt(selectValue);
+
+    this.setState({ pageLimit });
 
     try {
       const response = await api.searchListings(
-        pageDefault,
+        defaultPage,
         pageLimit,
         searchQuery,
         selectedRefinements.join(","),
         sortOrder
       );
       const { listings } = response.data;
-      const { total_pages } = response.data.meta;
+      const { total_pages, current_page } = response.data.meta;
 
-      this.setState({ listItems: listings, totalPages: total_pages });
+      this.setState({
+        listItems: listings,
+        totalPages: total_pages,
+        currentPage: current_page,
+      });
     } catch (error) {
       console.error(error);
     }
@@ -200,6 +206,7 @@ class Listings extends React.Component<{}, State> {
         ))}
         {this.state.totalPages > 1 && (
           <Pagination
+            currentPage={this.state.currentPage}
             totalPages={this.state.totalPages}
             onPageChange={this.handlePageChange}
           />
