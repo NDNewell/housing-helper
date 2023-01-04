@@ -8,10 +8,11 @@ export type SelectOption = {
 
 type Props = {
   onSelect: (selectValue: string) => void;
+  selectLabel: string;
   selectOptions: SelectOption[];
 };
 
-const Select: React.FC<Props> = ({ onSelect, selectOptions }) => {
+const Select: React.FC<Props> = ({ onSelect, selectLabel, selectOptions }) => {
   const selectDefaultValue = selectOptions.filter(
     (item) => item.default === true
   )[0].value;
@@ -27,7 +28,7 @@ const Select: React.FC<Props> = ({ onSelect, selectOptions }) => {
 
   return (
     <div className="select">
-      <label htmlFor="select">Sort by: </label>
+      <label htmlFor="select">{selectLabel}</label>
       <select id="select" value={selectState} onChange={handleSelect}>
         {selectOptions.map((option, index) => (
           <option key={index} value={option.value}>

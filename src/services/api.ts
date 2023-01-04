@@ -1,6 +1,6 @@
 import axios from "axios";
 
-interface ListingSearchParams {
+interface ListItemSearchParams {
   page?: number;
   pageLimit?: number;
   searchQuery?: string;
@@ -9,19 +9,19 @@ interface ListingSearchParams {
 }
 
 const searchListings = (
-  page: number,
-  pageLimit: number,
+  page?: number,
+  pageLimit?: number,
   searchQuery = "",
-  refinements: string,
-  sort = "asc"
+  refinements?: string,
+  sort?: string
 ) => {
-  const params: ListingSearchParams = {};
+  const params: ListItemSearchParams = {};
 
   if (searchQuery) {
     params.searchQuery = searchQuery;
   }
 
-  if (refinements.length > 0) {
+  if (refinements && refinements.length > 0) {
     params.refinements = refinements;
   }
 

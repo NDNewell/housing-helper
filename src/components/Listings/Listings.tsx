@@ -2,7 +2,8 @@ import * as React from "react";
 import Pagination from "../Pagination/Pagination";
 import ListingCard from "../ListingCard/ListingCard";
 import Refinements from "../Filters/Refinements";
-import SortSelect from "../Filters/Select";
+import SortListSelect from "../Filters/Select";
+import SetPageLimitSelect from "../Filters/Select";
 import api from "../../services/api";
 import Search from "../Filters/Search";
 import "./Listings.scss";
@@ -19,11 +20,13 @@ export type ListItem = {
 type State = {
   listItems: ListItem[];
   currentPage: number;
+  pageDefault: number;
   pageLimit: number;
   totalPages: number;
   searchQuery: string;
   availableRefinements: string[];
   selectedRefinements: string[];
+  sortOrder: string;
 };
 
 type Page = {
@@ -37,27 +40,25 @@ class Listings extends React.Component<{}, State> {
     availableRefinements: [],
     selectedRefinements: [],
     currentPage: 1,
+    pageDefault: 1,
     pageLimit: 5,
     totalPages: 0,
+    sortOrder: "asc",
   };
 
   componentDidMount() {
     this.getAvailableRefinements();
   }
 
-  // Get all possible amenities from each unit's amenities array for each listing
   getAvailableRefinements = async () => {
     try {
-      // Get all listings
       const response = await api.getRefinements();
       const refinements = response.data.filter(
         (refinement: string) => refinement !== null
       );
 
-      // Set the available amenities in the state
       this.setState({ availableRefinements: refinements });
     } catch (error) {
-      // Handle the error here
       console.error(error);
     }
   };
@@ -68,22 +69,27 @@ class Listings extends React.Component<{}, State> {
   };
 
   handleSortSelect = async (selectValue: string) => {
-    const { currentPage, pageLimit, searchQuery, selectedRefinements } =
+    const sortOrder = selectValue;
+    this.setState({ sortOrder });
+    const { pageDefault, pageLimit, searchQuery, selectedRefinements } =
       this.state;
     try {
-      // Get all listings
       const response = await api.searchListings(
-        currentPage,
+        pageDefault,
         pageLimit,
         searchQuery,
         selectedRefinements.join(","),
-        selectValue
+        sortOrder
       );
+      const { listings } = response.data;
+      const { total_pages, current_page } = response.data.meta;
 
-      console.log(response.data.listings);
-      this.setState({ listItems: response.data.listings });
+      this.setState({
+        listItems: listings,
+        totalPages: total_pages,
+        currentPage: current_page,
+      });
     } catch (error) {
-      // Handle the error here
       console.error(error);
     }
   };
@@ -104,12 +110,62 @@ class Listings extends React.Component<{}, State> {
     this.setState({ selectedRefinements: refinements });
   };
 
+  handlePageLimitSelect = async (selectValue: string) => {
+    const pageLimit = parseInt(selectValue);
+    this.setState({ pageLimit });
+    const { pageDefault, searchQuery, selectedRefinements, sortOrder } =
+      this.state;
+
+    try {
+      const response = await api.searchListings(
+        pageDefault,
+        pageLimit,
+        searchQuery,
+        selectedRefinements.join(","),
+        sortOrder
+      );
+      const { listings } = response.data;
+      const { total_pages } = response.data.meta;
+
+      this.setState({ listItems: listings, totalPages: total_pages });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   render() {
     return (
       <div className="listings">
         <h2 className="listings__heading">Affordable Housing Listings</h2>
-        <SortSelect
+        <SetPageLimitSelect
+          onSelect={this.handlePageLimitSelect}
+          selectLabel="Items per page:"
+          selectOptions={[
+            {
+              label: "5",
+              value: "5",
+              default: true,
+            },
+            {
+              label: "10",
+              value: "10",
+              default: false,
+            },
+            {
+              label: "15",
+              value: "15",
+              default: false,
+            },
+            {
+              label: "20",
+              value: "20",
+              default: false,
+            },
+          ]}
+        />
+        <SortListSelect
           onSelect={this.handleSortSelect}
+          selectLabel="Sort by:"
           selectOptions={[
             {
               label: "A-Z",

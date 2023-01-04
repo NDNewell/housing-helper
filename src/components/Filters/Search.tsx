@@ -48,7 +48,7 @@ const Search: React.FC<Props> = ({
           refinements
         );
         const searchResults = response.data.listings;
-        const totalPages = response.data.meta.totalPages;
+        const totalPages = response.data.meta.total_pages;
 
         onSearch(searchResults, totalPages, page);
       } catch (error) {

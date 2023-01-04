@@ -62,14 +62,14 @@ const customRoutes = (app) => {
 
     // Create the meta object for the pagination
     const meta = {
-      currentPage: parsedPage,
-      nextPage:
+      current_page: parsedPage,
+      next_page:
         nextPage <= Math.ceil(filteredListItems.length / parsedPageLimit)
           ? nextPage
           : null,
-      prevPage: prevPage > 0 ? prevPage : null,
-      totalPages: Math.ceil(filteredListItems.length / parsedPageLimit),
-      totalResults: filteredListItems.length,
+      prev_page: prevPage > 0 ? prevPage : null,
+      total_pages: Math.ceil(filteredListItems.length / parsedPageLimit),
+      total_results: filteredListItems.length,
     };
 
     // Return the paginated listings with the meta object
