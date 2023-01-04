@@ -31,8 +31,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "sass": "nodemon --exec 'node-sass src/ -o src/ --watch' --ignore src/",
-    "server": "node customRoutes.js",
-    "dev": "concurrently \"npm start\" \"npm run sass\" \"npm run server\""
+    "server": "nodemon customRoutes.js --ignore src/",
+    "dev": "concurrently \"npm start\" \"npm run sass\" \"npm run server\"",
+    "watch-server": "nodemon --watch customRoutes.js -e js"
   },
   "eslintConfig": {
     "extends": [
