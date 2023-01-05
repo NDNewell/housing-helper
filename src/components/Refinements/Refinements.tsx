@@ -1,9 +1,5 @@
 import * as React from "react";
-
-type Props = {
-  refinements: string[];
-  onSave: (refinements: string[]) => void;
-};
+import { Props } from "./types";
 
 const Refinements: React.FC<Props> = ({ refinements, onSave }) => {
   const [selectedAmenities, setSelectedAmenities] = React.useState<string[]>(

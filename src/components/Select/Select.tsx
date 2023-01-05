@@ -1,16 +1,6 @@
 import * as React from "react";
 
-export type SelectOption = {
-  label: string;
-  value: string;
-  default: boolean;
-};
-
-type Props = {
-  onSelect: (selectValue: string) => void;
-  selectLabel: string;
-  selectOptions: SelectOption[];
-};
+import { Props } from "./types";
 
 const Select: React.FC<Props> = ({ onSelect, selectLabel, selectOptions }) => {
   const selectDefaultValue = selectOptions.filter(

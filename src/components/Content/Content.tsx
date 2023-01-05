@@ -1,42 +1,16 @@
 import * as React from "react";
-import Pagination from "../Pagination/Pagination";
-import ListingCard from "../Card/Card";
-import Refinements from "../Refinements/Refinements";
-import SortListSelect from "../Select/Select";
-import SetPageLimitSelect from "../Select/Select";
-import RangeSlider from "../RangeSlider/RangeSlider";
-import api from "../../services/api";
-import Search from "../Search/Search";
 import "./content.scss";
 
-import { Unit } from "../Card/Card";
-import { OccupancyRange } from "../../services/api";
+import api from "../../services/api";
+import { State, ListItem, Page } from "./types";
 
-export type ListItem = {
-  id: string;
-  name: string;
-  picture: string;
-  units: Unit[];
-};
-
-type State = {
-  listItems: ListItem[];
-  defaultPage: number;
-  currentPage: number;
-  pageLimit: number;
-  totalPages: number;
-  searchQuery: string;
-  availableRefinements: string[];
-  selectedRefinements: string[];
-  sortOrder: string;
-  minOccupancy: number;
-  maxOccupancy: number;
-  occupancyRange: OccupancyRange;
-};
-
-type Page = {
-  selected: number;
-};
+import Pagination from "../Pagination/Pagination";
+import Refinements from "../Refinements/Refinements";
+import RangeSlider from "../RangeSlider/RangeSlider";
+import Search from "../Search/Search";
+import SetPageLimitSelect from "../Select/Select";
+import SortListSelect from "../Select/Select";
+import ListingCard from "../Card/Card";
 
 class Listings extends React.Component<{}, State> {
   state: State = {

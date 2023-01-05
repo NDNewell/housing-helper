@@ -1,13 +1,7 @@
-import React, { useState } from "react";
-import Slider from "react-slider";
 import "./rangeSlider.scss";
-
-// Define the interface for the props that the component will receive
-type RangeSliderProps = {
-  minOccupancy: number;
-  maxOccupancy: number;
-  onRangeChange: (values: [number, number]) => void;
-};
+import Slider from "react-slider";
+import React, { useState, useEffect } from "react";
+import { RangeSliderProps } from "./types";
 
 // Create the RangeSlider component
 const RangeSlider: React.FC<RangeSliderProps> = ({
@@ -25,7 +19,7 @@ const RangeSlider: React.FC<RangeSliderProps> = ({
     onRangeChange(values);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     setMin(minOccupancy);
     setMax(maxOccupancy);
   }, [minOccupancy, maxOccupancy]);

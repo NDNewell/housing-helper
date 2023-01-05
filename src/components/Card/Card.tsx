@@ -1,21 +1,6 @@
 import * as React from "react";
 import "./card.scss";
-
-export type Unit = {
-  type: string;
-  minOccupancy: number;
-  maxOccupancy: number;
-  sqft: number;
-  amenities: string[];
-};
-
-interface Props {
-  key: string;
-  id: string;
-  name: string;
-  picture: string;
-  units: Unit[];
-}
+import { Unit, Props } from "./types";
 
 const ListingCard = ({ id, name, picture, units }: Props) => {
   // unitTotalsList is an array of objects, each containing a unit type, the total number of units of that type, and the average square footage of units of that type

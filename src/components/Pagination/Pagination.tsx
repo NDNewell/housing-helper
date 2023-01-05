@@ -1,12 +1,10 @@
 import * as React from "react";
-import PaginateComp from "react-paginate";
 import "./pagination.scss";
 
-type Props = {
-  currentPage: number;
-  totalPages: number;
-  onPageChange: (selectedItem: any) => void;
-};
+import { Props } from "./types";
+
+import PaginateComp from "react-paginate";
+
 const Pagination: React.FC<Props> = ({
   currentPage,
   totalPages,

@@ -1,23 +1,8 @@
 import * as React from "react";
 import _ from "lodash";
+
 import api from "../../services/api";
-import { ListItem } from "../Content/Content";
-
-import { OccupancyRange } from "../../services/api";
-
-type Props = {
-  onSearch: (
-    searchQuery: string,
-    searchResults: ListItem[],
-    totalPages: number,
-    page: number
-  ) => void;
-  page: number;
-  pageLimit: number;
-  occupancyRange: OccupancyRange;
-  refinements: string;
-  sortOrder: string;
-};
+import { Props } from "./types";
 
 const Search: React.FC<Props> = ({
   onSearch,
