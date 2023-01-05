@@ -1,6 +1,6 @@
 import * as React from "react";
 import PaginateComp from "react-paginate";
-import "./Pagination.scss";
+import "./pagination.scss";
 
 type Props = {
   currentPage: number;

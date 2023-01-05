@@ -1,5 +1,5 @@
 import * as React from "react";
-import "./ListingCard.scss";
+import "./card.scss";
 
 export type Unit = {
   type: string;

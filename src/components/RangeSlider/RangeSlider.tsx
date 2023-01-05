@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Slider from "react-slider";
-import "./RangeSlider.scss";
+import "./rangeSlider.scss";
 
 // Define the interface for the props that the component will receive
 type RangeSliderProps = {

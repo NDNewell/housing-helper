@@ -1,15 +1,15 @@
 import * as React from "react";
 import Pagination from "../Pagination/Pagination";
-import ListingCard from "../ListingCard/ListingCard";
-import Refinements from "../Filters/Refinements";
-import SortListSelect from "../Filters/Select";
-import SetPageLimitSelect from "../Filters/Select";
-import RangeSlider from "../Filters/RangeSlider";
+import ListingCard from "../Card/Card";
+import Refinements from "../Refinements/Refinements";
+import SortListSelect from "../Select/Select";
+import SetPageLimitSelect from "../Select/Select";
+import RangeSlider from "../RangeSlider/RangeSlider";
 import api from "../../services/api";
-import Search from "../Filters/Search";
+import Search from "../Search/Search";
 import "./Listings.scss";
 
-import { Unit } from "../ListingCard/ListingCard";
+import { Unit } from "../Card/Card";
 import { OccupancyRange } from "../../services/api";
 
 export type ListItem = {

@@ -1,7 +1,7 @@
 import * as React from "react";
 import _ from "lodash";
 import api from "../../services/api";
-import { ListItem } from "../Listings/Listings";
+import { ListItem } from "../Content/Content";
 
 import { OccupancyRange } from "../../services/api";
 

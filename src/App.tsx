@@ -1,10 +1,10 @@
 import * as React from "react";
-import Listings from "./components/Listings/Listings";
+import Content from "./components/Content/Content";
 
 const App: React.FC = () => {
   return (
     <div className="app">
-      <Listings />
+      <Content />
     </div>
   );
 };
