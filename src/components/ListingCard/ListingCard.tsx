@@ -24,8 +24,8 @@ const ListingCard = ({ id, name, picture, units }: Props) => {
       type: string;
       unitTotals: number;
       averageSqft: number;
-      averageMaxOccupancy: number;
-      averageMinOccupancy: number;
+      minOccupancy: number;
+      maxOccupancy: number;
     }>
   >([]);
   const [amenities, setAmenities] = React.useState<string[]>([]);
@@ -45,26 +45,33 @@ const ListingCard = ({ id, name, picture, units }: Props) => {
           [key: string]: {
             unitTypeTotal: number;
             totalSqft: number;
-            totalMaxOccupancy: number;
-            totalMinOccupancy: number;
+            minOccupancy: number;
+            maxOccupancy: number;
           };
         },
         unit: Unit
       ) => {
-        // If the unit type does not yet exist in the object, add it and set the unit count and total square footage to the values for this unit
+        // If the unit type does not yet exist in the object, add it and set the unit count, total square footage, and min/max occupancy values to the values for this unit
         if (!acc[unit.type]) {
           acc[unit.type] = {
             unitTypeTotal: 1,
             totalSqft: unit.sqft,
-            totalMaxOccupancy: unit.maxOccupancy,
-            totalMinOccupancy: unit.minOccupancy,
+            minOccupancy: unit.minOccupancy,
+            maxOccupancy: unit.maxOccupancy,
           };
         }
         // Otherwise, increment the unit count and add the square footage of this unit to the total
         acc[unit.type].unitTypeTotal++;
         acc[unit.type].totalSqft += unit.sqft;
-        acc[unit.type].totalMaxOccupancy += unit.maxOccupancy;
-        acc[unit.type].totalMinOccupancy += unit.minOccupancy;
+        // Update the min/max occupancy values for the unit type if necessary
+        acc[unit.type].minOccupancy = Math.min(
+          acc[unit.type].minOccupancy,
+          unit.minOccupancy
+        );
+        acc[unit.type].maxOccupancy = Math.max(
+          acc[unit.type].maxOccupancy,
+          unit.maxOccupancy
+        );
         return acc;
       },
       {}
@@ -98,19 +105,13 @@ const ListingCard = ({ id, name, picture, units }: Props) => {
           // Calculate the average square footage for the current unit type and rounds down to the nearest whole number
           const unit = unitTotals[unitType];
           const averageSqft = Math.floor(unit.totalSqft / unit.unitTypeTotal);
-          const averageMaxOccupancy = Math.floor(
-            unit.totalMaxOccupancy / unit.unitTypeTotal
-          );
-          const averageMinOccupancy = Math.floor(
-            unit.totalMinOccupancy / unit.unitTypeTotal
-          );
           // This object is returned and will be added to the unitTypesList array
           return {
             type: displayUnitType,
             unitTotals: unitTotals[unitType].unitTypeTotal,
             averageSqft,
-            averageMaxOccupancy,
-            averageMinOccupancy,
+            minOccupancy: unit.minOccupancy,
+            maxOccupancy: unit.maxOccupancy,
           };
         })
         // Sort the unit types by number of bedrooms, with studios coming first
@@ -140,8 +141,7 @@ const ListingCard = ({ id, name, picture, units }: Props) => {
             return (
               <li key={unit.type}>
                 {unit.type}: {unit.unitTotals} units, avg {unit.averageSqft}{" "}
-                ft², {unit.averageMinOccupancy}-{unit.averageMaxOccupancy} max
-                occupants
+                ft², {unit.minOccupancy}-{unit.maxOccupancy} max occupants
               </li>
             );
           })}
