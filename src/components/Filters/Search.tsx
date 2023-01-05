@@ -13,17 +13,19 @@ type Props = {
     page: number
   ) => void;
   page: number;
+  pageLimit: number;
   occupancyRange: OccupancyRange;
-  listingsPerPage: number;
   refinements: string;
+  sortOrder: string;
 };
 
 const Search: React.FC<Props> = ({
   onSearch,
   page,
-  listingsPerPage,
+  pageLimit,
   refinements,
   occupancyRange,
+  sortOrder,
 }: Props) => {
   const [searchQuery, setSearchQuery] = React.useState("");
 
@@ -48,10 +50,11 @@ const Search: React.FC<Props> = ({
       try {
         const response = await api.searchListings(
           page,
-          listingsPerPage,
+          pageLimit,
           searchQuery,
           occupancyRange,
-          refinements
+          refinements,
+          sortOrder
         );
         const searchResults = response.data.listings;
         const totalPages = response.data.meta.total_pages;
@@ -68,7 +71,7 @@ const Search: React.FC<Props> = ({
   React.useEffect(() => {
     search(searchQuery);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchQuery, page, refinements, occupancyRange]);
+  }, [searchQuery, page, refinements, occupancyRange, sortOrder, pageLimit]);
 
   return (
     <div className="filters__search">

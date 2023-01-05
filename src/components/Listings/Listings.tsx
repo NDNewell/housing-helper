@@ -86,78 +86,6 @@ class Listings extends React.Component<{}, State> {
     }
   };
 
-  handlePageChange = ({ selected }: Page) => {
-    const selectedPage = selected + 1;
-    this.setState({ currentPage: selectedPage });
-  };
-
-  handleSortSelect = async (selectValue: string) => {
-    const {
-      defaultPage,
-      pageLimit,
-      searchQuery,
-      selectedRefinements,
-      occupancyRange,
-    } = this.state;
-    const sortOrder = selectValue;
-
-    this.setState({ sortOrder });
-    try {
-      const response = await api.searchListings(
-        defaultPage,
-        pageLimit,
-        searchQuery,
-        occupancyRange,
-        selectedRefinements.join(","),
-        sortOrder
-      );
-      const { listings } = response.data;
-      const { total_pages, current_page } = response.data.meta;
-
-      this.setState({
-        listItems: listings,
-        totalPages: total_pages,
-        currentPage: current_page,
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  handlePageLimitSelect = async (selectValue: string) => {
-    const {
-      defaultPage,
-      searchQuery,
-      selectedRefinements,
-      occupancyRange,
-      sortOrder,
-    } = this.state;
-    const pageLimit = parseInt(selectValue);
-
-    this.setState({ pageLimit });
-
-    try {
-      const response = await api.searchListings(
-        defaultPage,
-        pageLimit,
-        searchQuery,
-        occupancyRange,
-        selectedRefinements.join(","),
-        sortOrder
-      );
-      const { listings } = response.data;
-      const { total_pages, current_page } = response.data.meta;
-
-      this.setState({
-        listItems: listings,
-        totalPages: total_pages,
-        currentPage: current_page,
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   handleSearch = (
     searchQuery: string,
     searchResults: ListItem[],
@@ -169,6 +97,22 @@ class Listings extends React.Component<{}, State> {
       listItems: searchResults,
       totalPages: totalPages,
       currentPage: page,
+    });
+  };
+
+  handlePageChange = ({ selected }: Page) => {
+    const selectedPage = selected + 1;
+    this.setState({ currentPage: selectedPage });
+  };
+
+  handleSortSelect = async (selectValue: string) => {
+    this.setState({ sortOrder: selectValue });
+  };
+
+  handlePageLimitSelect = async (selectValue: string) => {
+    this.setState({
+      currentPage: this.state.defaultPage,
+      pageLimit: parseInt(selectValue),
     });
   };
 
@@ -233,10 +177,11 @@ class Listings extends React.Component<{}, State> {
         />
         <Search
           onSearch={this.handleSearch}
-          listingsPerPage={this.state.pageLimit}
           page={this.state.currentPage}
+          pageLimit={this.state.pageLimit}
           refinements={this.state.selectedRefinements.join(",")}
           occupancyRange={this.state.occupancyRange}
+          sortOrder={this.state.sortOrder}
         />
         <h4>Filters</h4>
         <RangeSlider
@@ -248,7 +193,6 @@ class Listings extends React.Component<{}, State> {
           refinements={this.state.availableRefinements}
           onSave={this.handleRefinements}
         />
-
         {this.state.listItems.map((listing) => (
           <ListingCard
             key={listing.id}
