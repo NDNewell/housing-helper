@@ -1,0 +1,54 @@
+.range-slider {
+  position: relative;
+  width: 300px;
+  border: 1px solid rgb(188, 185, 185);
+  box-shadow: 1.5px 3px 3px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  margin: 20px 0;
+  text-align: center;
+
+  &__container {
+    display: flex;
+    align-items: center;
+    margin: auto;
+    height: 45px;
+    width: 90%;
+  }
+
+  &__track {
+    width: 100%;
+    background: #ddd;
+    height: 5px;
+    border-radius: 4px;
+
+    &-1,
+    &-2 {
+      display: none;
+    }
+  }
+
+  &__thumb {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background: #333;
+    font-size: 14px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    filter: drop-shadow(0 2px 4px, #333);
+    text-align: center;
+
+    &::after {
+      content: attr(aria-valuenow);
+      position: absolute;
+      bottom: -17px;
+      border: none;
+    }
+
+    &--active {
+      outline: none;
+    }
+  }
+}

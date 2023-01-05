@@ -1,46 +1,33 @@
-# Getting Started with Create React App
+# Affordable Housing Listings
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to the Affordable Housing Listings application! This application was developed to help people find affordable housing options in their area.
 
-## Available Scripts
+## How the application works
 
-In the project directory, you can run:
+The application allows users to search for properties based on their preferences, including occupancy preferences and amenities. Users can also filter their search results by selecting specific amenities, such as wheelchair access or a garage. The search results can be sorted alphabetically or by the number of items per page, and users can navigate between pages to view more results.
 
-### `npm start`
+## Technologies used
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+This application was built using React.js and TypeScript for the frontend and Express.js for the backend. The application also uses a JSON file to store the housing listings data.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Setting up the application
 
-### `npm test`
+To set up the application, first clone the repository and install the dependencies by running the following commands:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+````git clone https://github.com/nicholasnewell/affordable-housing-listings.git
+cd affordable-housing-listings
+npm install```
 
-### `npm run build`
+Next, start the development server by running the following command:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+`npm run dev`
+The application will now be running on [http://localhost:3000](http://localhost:3000).
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Contact the developer
+If you have any questions or feedback about the application, please don't hesitate to contact the developer, Nicholas Newell, at nicholas.newell@pm.me. We hope you find this application helpful in your search for affordable housing!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+````
 
-### `npm run eject`
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+```

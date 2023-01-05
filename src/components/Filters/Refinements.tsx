@@ -27,7 +27,6 @@ const Refinements: React.FC<Props> = ({ refinements, onSave }) => {
 
   return (
     <div className="refinements">
-      <h3>Refine by Amenities</h3>
       <form>
         {refinements.map((refinement) => (
           <label key={refinement}>

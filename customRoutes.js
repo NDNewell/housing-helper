@@ -9,6 +9,7 @@ const customRoutes = (app) => {
 
     // Get the query parameters from the request
     const {
+      occupancyRange,
       refinements,
       searchQuery,
       page,
@@ -19,6 +20,20 @@ const customRoutes = (app) => {
     const defaultPageLimit = 10;
 
     let filteredListItems = data.listings;
+
+    // find all listings where the lowest value for minOccupancy is greater than or equal to the range.min
+    // and the highest value for maxOccupancy is less than or equal to the range.max
+    if (occupancyRange) {
+      const { min, max } = JSON.parse(
+        `{"min":${occupancyRange.min},"max":${occupancyRange.max}}`
+      );
+
+      filteredListItems = filteredListItems.filter((listing) => {
+        return listing.units.some((unit) => {
+          return unit.minOccupancy >= min && unit.maxOccupancy <= max;
+        });
+      });
+    }
 
     // Filter the listings by amenities if provided
     if (refinements) {
@@ -97,6 +112,24 @@ const customRoutes = (app) => {
     // Convert the set to an array and return it
     allAmenities = Array.from(allAmenities);
     res.json(allAmenities);
+  });
+
+  // Route to get min and max occupancy values
+  app.get("/occupancyLimits", (req, res) => {
+    // Read the file
+    const data = JSON.parse(fs.readFileSync("db.json", "utf8"));
+
+    // Get all units
+    const units = data.listings.reduce((acc, listing) => {
+      return acc.concat(listing.units);
+    }, []);
+
+    // Get min and max occupancy values
+    const minOccupancy = Math.min(...units.map((unit) => unit.minOccupancy));
+    const maxOccupancy = Math.max(...units.map((unit) => unit.maxOccupancy));
+
+    // Send min and max values as response
+    res.json({ min: minOccupancy, max: maxOccupancy });
   });
 };
 

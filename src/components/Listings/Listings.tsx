@@ -4,11 +4,13 @@ import ListingCard from "../ListingCard/ListingCard";
 import Refinements from "../Filters/Refinements";
 import SortListSelect from "../Filters/Select";
 import SetPageLimitSelect from "../Filters/Select";
+import RangeSlider from "../Filters/RangeSlider";
 import api from "../../services/api";
 import Search from "../Filters/Search";
 import "./Listings.scss";
 
 import { Unit } from "../ListingCard/ListingCard";
+import { OccupancyRange } from "../../services/api";
 
 export type ListItem = {
   id: string;
@@ -27,6 +29,9 @@ type State = {
   availableRefinements: string[];
   selectedRefinements: string[];
   sortOrder: string;
+  minOccupancy: number;
+  maxOccupancy: number;
+  occupancyRange: OccupancyRange;
 };
 
 type Page = {
@@ -44,11 +49,29 @@ class Listings extends React.Component<{}, State> {
     pageLimit: 5,
     totalPages: 0,
     sortOrder: "",
+    minOccupancy: 0,
+    maxOccupancy: 0,
+    occupancyRange: {
+      min: 0,
+      max: 0,
+    },
   };
 
   componentDidMount() {
     this.getAvailableRefinements();
+    this.getMinMaxOccupancy();
   }
+
+  getMinMaxOccupancy = async () => {
+    try {
+      const response = await api.getMinMaxOccupancy();
+      const { min, max } = response.data;
+
+      this.setState({ minOccupancy: min, maxOccupancy: max });
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   getAvailableRefinements = async () => {
     try {
@@ -69,8 +92,13 @@ class Listings extends React.Component<{}, State> {
   };
 
   handleSortSelect = async (selectValue: string) => {
-    const { defaultPage, pageLimit, searchQuery, selectedRefinements } =
-      this.state;
+    const {
+      defaultPage,
+      pageLimit,
+      searchQuery,
+      selectedRefinements,
+      occupancyRange,
+    } = this.state;
     const sortOrder = selectValue;
 
     this.setState({ sortOrder });
@@ -79,6 +107,7 @@ class Listings extends React.Component<{}, State> {
         defaultPage,
         pageLimit,
         searchQuery,
+        occupancyRange,
         selectedRefinements.join(","),
         sortOrder
       );
@@ -96,8 +125,13 @@ class Listings extends React.Component<{}, State> {
   };
 
   handlePageLimitSelect = async (selectValue: string) => {
-    const { defaultPage, searchQuery, selectedRefinements, sortOrder } =
-      this.state;
+    const {
+      defaultPage,
+      searchQuery,
+      selectedRefinements,
+      occupancyRange,
+      sortOrder,
+    } = this.state;
     const pageLimit = parseInt(selectValue);
 
     this.setState({ pageLimit });
@@ -107,6 +141,7 @@ class Listings extends React.Component<{}, State> {
         defaultPage,
         pageLimit,
         searchQuery,
+        occupancyRange,
         selectedRefinements.join(","),
         sortOrder
       );
@@ -139,6 +174,15 @@ class Listings extends React.Component<{}, State> {
 
   handleRefinements = (refinements: string[]) => {
     this.setState({ selectedRefinements: refinements });
+  };
+
+  handleRangeChange = (values: [number, number]) => {
+    this.setState({
+      occupancyRange: {
+        min: values[0],
+        max: values[1],
+      },
+    });
   };
 
   render() {
@@ -192,11 +236,19 @@ class Listings extends React.Component<{}, State> {
           listingsPerPage={this.state.pageLimit}
           page={this.state.currentPage}
           refinements={this.state.selectedRefinements.join(",")}
+          occupancyRange={this.state.occupancyRange}
+        />
+        <h4>Filters</h4>
+        <RangeSlider
+          minOccupancy={this.state.minOccupancy}
+          maxOccupancy={this.state.maxOccupancy}
+          onRangeChange={this.handleRangeChange}
         />
         <Refinements
           refinements={this.state.availableRefinements}
           onSave={this.handleRefinements}
         />
+
         {this.state.listItems.map((listing) => (
           <ListingCard
             key={listing.id}

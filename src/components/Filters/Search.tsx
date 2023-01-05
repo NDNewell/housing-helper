@@ -3,6 +3,8 @@ import _ from "lodash";
 import api from "../../services/api";
 import { ListItem } from "../Listings/Listings";
 
+import { OccupancyRange } from "../../services/api";
+
 type Props = {
   onSearch: (
     searchQuery: string,
@@ -11,6 +13,7 @@ type Props = {
     page: number
   ) => void;
   page: number;
+  occupancyRange: OccupancyRange;
   listingsPerPage: number;
   refinements: string;
 };
@@ -20,6 +23,7 @@ const Search: React.FC<Props> = ({
   page,
   listingsPerPage,
   refinements,
+  occupancyRange,
 }: Props) => {
   const [searchQuery, setSearchQuery] = React.useState("");
 
@@ -46,6 +50,7 @@ const Search: React.FC<Props> = ({
           page,
           listingsPerPage,
           searchQuery,
+          occupancyRange,
           refinements
         );
         const searchResults = response.data.listings;
@@ -63,7 +68,7 @@ const Search: React.FC<Props> = ({
   React.useEffect(() => {
     search(searchQuery);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchQuery, page, refinements]);
+  }, [searchQuery, page, refinements, occupancyRange]);
 
   return (
     <div className="filters__search">

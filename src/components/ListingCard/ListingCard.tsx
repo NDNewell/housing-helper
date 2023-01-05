@@ -140,8 +140,8 @@ const ListingCard = ({ id, name, picture, units }: Props) => {
             return (
               <li key={unit.type}>
                 {unit.type}: {unit.unitTotals} units, avg {unit.averageSqft}{" "}
-                ft², {unit.averageMinOccupancy}-{unit.averageMaxOccupancy}{" "}
-                (min/max ppl)
+                ft², {unit.averageMinOccupancy}-{unit.averageMaxOccupancy} max
+                occupants
               </li>
             );
           })}
