@@ -4,6 +4,7 @@
 
 .range-slider {
   width: 100%;
+  margin-top: rem-calc(0);
 
   @include panel-styles;
   position: relative;
@@ -52,5 +53,11 @@
     &--active {
       outline: none;
     }
+  }
+}
+
+@include media-query($breakpoint-medium) {
+  .range-slider {
+    margin-top: 0;
   }
 }

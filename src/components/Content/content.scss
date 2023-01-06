@@ -3,8 +3,9 @@
 @import "../../styles/functions";
 
 .content {
-  // @include grid-columns(1);
   @include flex-wrap;
+  max-width: rem-calc(550);
+  margin: auto;
 
   .header,
   .search,
@@ -20,6 +21,7 @@
     @include flex-wrap;
 
     .select {
+      margin-top: 0 !important;
       $fontSize: rem-calc(18);
 
       @include panel-styles;
@@ -47,6 +49,14 @@
 
 @include media-query($breakpoint-medium) {
   .content {
+    max-width: rem-calc(750);
+    gap: rem-calc(20);
+
+    .header,
+    .results {
+      max-width: initial;
+    }
+
     .filters {
       max-width: rem-calc(300);
       height: fit-content;
@@ -64,6 +74,7 @@
         padding-bottom: $padding;
         flex-wrap: initial;
         height: rem-calc(45);
+        margin-top: 0;
 
         .select {
           display: flex;
@@ -88,12 +99,5 @@
         }
       }
     }
-  }
-}
-
-@include media-query($breakpoint-medium) {
-  .header,
-  .results {
-    max-width: initial;
   }
 }

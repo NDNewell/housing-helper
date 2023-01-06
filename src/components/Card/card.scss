@@ -6,14 +6,16 @@
   &__list {
     @include flex-wrap;
   }
+  &__card:nth-child(1) {
+    margin-top: 0 !important;
+  }
 
   &__card {
     @include panel-styles;
     @include flex-wrap;
 
     width: 100%;
-    max-width: rem-calc(600);
-    margin-bottom: rem-calc(16);
+    margin-bottom: 0;
 
     &-header,
     &-picture,
@@ -37,11 +39,14 @@
 
     &-unit-types {
       @include panel-styles;
+      @include flex-wrap;
+
       box-shadow: none;
       list-style: none;
       padding: rem-calc(0);
 
       li {
+        width: 100%;
         padding: rem-calc(0) rem-calc(18);
       }
 
@@ -50,6 +55,7 @@
       }
 
       span {
+        min-width: rem-calc(50);
         font-weight: $medium-font-weight;
       }
     }
@@ -57,42 +63,82 @@
     &-amenities {
       @include panel-styles;
       box-shadow: none;
+      margin: 0;
     }
   }
+}
 
-  @include media-query($breakpoint-small) {
-    .results {
-      &__card {
-        position: relative;
-        overflow: hidden;
-        gap: rem-calc(20);
+@include media-query($breakpoint-small) {
+  .results {
+    &__card {
+      position: relative;
+      overflow: hidden;
+      gap: rem-calc(20);
 
-        &-name {
-          margin: 0;
-          box-shadow: none;
-          background: $primary;
-        }
+      &-name {
+        margin: 0;
+        box-shadow: none;
+        background: $primary;
+      }
 
-        &-picture {
-          width: rem-calc(256);
+      &-picture {
+        width: initial;
+        max-width: rem-calc(230);
 
-          img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-          }
-        }
-
-        &-unit-types {
-          flex-grow: 2;
-          margin: 0;
-          width: 50%;
-        }
-
-        &-amenities {
-          margin: 0;
+        img {
           width: 100%;
+          height: 100%;
+          object-fit: cover;
         }
+      }
+
+      &-unit-types {
+        flex-grow: 2;
+        margin: 0;
+        width: 50%;
+
+        li {
+          display: flex;
+          align-items: center;
+        }
+      }
+
+      &-amenities {
+        margin: 0;
+        width: 100%;
+      }
+    }
+  }
+}
+
+@include media-query($breakpoint-medium) {
+  .results {
+    &__card {
+      &-name {
+        justify-content: center;
+        display: flex;
+        order: 1;
+      }
+
+      &-picture {
+        display: flex;
+        flex-grow: 1;
+        order: 2;
+        max-width: rem-calc(135);
+      }
+
+      &-amenities {
+        display: flex;
+        flex-grow: 2;
+        order: 3;
+        width: 25%;
+      }
+
+      &-unit-types {
+        display: flex;
+        flex-grow: initial;
+        width: 100%;
+        order: 4;
       }
     }
   }
