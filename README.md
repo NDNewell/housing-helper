@@ -14,8 +14,9 @@ This application was built using React.js and TypeScript for the frontend and Ex
 
 To set up the application, first clone the repository and install the dependencies by running the following commands:
 
-````git clone https://github.com/nicholasnewell/affordable-housing-listings.git
-cd affordable-housing-listings
+git clone https://github.com/nicholasnewell/affordable-housing-listings.git
+
+````cd affordable-housing-listings
 npm install```
 
 Next, start the development server by running the following command:
