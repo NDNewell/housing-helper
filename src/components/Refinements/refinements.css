@@ -1,0 +1,36 @@
+.refinements {
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 1.5px 3px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #bcb9b9;
+  padding: 18px;
+  margin: 20px 0;
+  width: 100%; }
+
+.refinements__form {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%; }
+
+.refinements__label {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  font-size: 1.125rem;
+  padding-bottom: 10px; }
+
+.refinements__label input {
+  height: 1.25rem;
+  width: 1.25rem; }
+
+.refinements__label span {
+  margin-top: -0.125rem;
+  padding-left: 0.1875rem; }
+
+.refinements button {
+  height: 3.125rem;
+  font-size: 1.25rem;
+  width: 100%; }
+
+.refinements__button {
+  width: 100%; }
