@@ -17,9 +17,14 @@ const Select: React.FC<Props> = ({ onSelect, selectLabel, selectOptions }) => {
   };
 
   return (
-    <div className="select">
+    <div className="select" aria-label={selectLabel}>
       <label htmlFor="select">{selectLabel}</label>
-      <select id="select" value={selectState} onChange={handleSelect}>
+      <select
+        id="select"
+        value={selectState}
+        onChange={handleSelect}
+        aria-labelledby="select"
+      >
         {selectOptions.map((option, index) => (
           <option key={index} value={option.value}>
             {option.label}

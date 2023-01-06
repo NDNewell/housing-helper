@@ -115,17 +115,19 @@ const Card = ({ id, name, picture, units }: Props) => {
   }, [units]);
 
   return (
-    <div className="results__card">
+    <div className="results__card" aria-label={`Listing card for ${name}`}>
       <div className="results__card-header">
-        <h3 className="results__card-name">{name}</h3>
+        <h3 className="results__card-name" aria-label="Listing name">
+          {name}
+        </h3>
       </div>
-      <div className="results__card-picture">
-        <img src={picture} alt={name} />
+      <div className="results__card-picture" aria-label="Listing image">
+        <img src={picture} alt={`${name}`} />
       </div>
-      <ul className="results__card-unit-types">
+      <ul className="results__card-unit-types" aria-label="List of unit types">
         {unitTotalsList.map((unit) => {
           return (
-            <li key={unit.type}>
+            <li key={unit.type} aria-label={`Unit type: ${unit.type}`}>
               <span>{unit.type}</span> - {unit.unitTotals} units, avg{" "}
               {unit.averageSqft} ft², {unit.minOccupancy}-{unit.maxOccupancy}{" "}
               max occupants
@@ -133,7 +135,9 @@ const Card = ({ id, name, picture, units }: Props) => {
           );
         })}
       </ul>
-      <div className="results__card-amenities">{amenities.join(", ")}</div>
+      <div className="results__card-amenities" aria-label="Amenities list">
+        {amenities.join(", ")}
+      </div>
     </div>
   );
 };

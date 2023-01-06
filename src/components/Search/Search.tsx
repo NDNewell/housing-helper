@@ -64,13 +64,21 @@ const Search: React.FC<Props> = ({
     <div className="search">
       <div className="search__form">
         <form onSubmit={handleSearchSubmit}>
-          <input
-            type="text"
-            onChange={onChange}
-            placeholder="Search for a property"
-            value={searchQuery}
-          ></input>
-          <button type="button" onClick={handleClear} disabled={!searchQuery}>
+          <label htmlFor="search-input" aria-label="Search for a property">
+            <input
+              id="search-input"
+              type="text"
+              onChange={onChange}
+              placeholder="Search for a property"
+              value={searchQuery}
+            ></input>
+          </label>
+          <button
+            type="button"
+            onClick={handleClear}
+            disabled={!searchQuery}
+            aria-label="Clear search"
+          >
             Clear
           </button>
         </form>

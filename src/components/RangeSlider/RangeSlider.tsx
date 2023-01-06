@@ -26,7 +26,7 @@ const RangeSlider: React.FC<RangeSliderProps> = ({
   }, [minOccupancy, maxOccupancy]);
 
   return (
-    <div className="range-slider">
+    <div className="range-slider" aria-label="Occupancy Preferences Slider">
       <span className="range-slider__title">Occupancy Preferences</span>
       <Slider
         onChange={handleRangeChange}
