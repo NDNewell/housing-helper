@@ -26,6 +26,47 @@ html {
   box-sizing: inherit;
 }
 
+h1 {
+  @include font-size-rem(2.5);
+  font-weight: $bold-font-weight;
+  margin-bottom: font-size-rem(2.5);
+}
+
+h2 {
+  @include font-size-rem(2.25);
+  font-weight: $bold-font-weight;
+  margin-bottom: font-size-rem(2.25);
+}
+
+h3 {
+  @include font-size-rem(2);
+  font-weight: $bold-font-weight;
+  margin-bottom: font-size-rem(2);
+}
+
+h4 {
+  @include font-size-rem(1.75);
+  font-weight: $bold-font-weight;
+  margin-bottom: font-size-rem(1.75);
+}
+
+h5 {
+  @include font-size-rem(1.5);
+  font-weight: $bold-font-weight;
+  margin-bottom: font-size-rem(1.5);
+}
+
+h6 {
+  @include font-size-rem(1.25);
+  font-weight: $bold-font-weight;
+  margin-bottom: font-size-rem(1.25);
+}
+
+p {
+  font-size: font-size-rem(1);
+  font-weight: $normal-font-weight;
+}
+
 // Typography
 body {
   margin: 0;
