@@ -1,7 +1,7 @@
 @import "../../styles/mixins";
 @import "../../styles/variables";
 
-#content {
+.content {
   @include media-query($breakpoint-small) {
     @include grid-columns(1);
     @include flex-wrap;

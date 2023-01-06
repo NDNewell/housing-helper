@@ -27,43 +27,43 @@ html {
 }
 
 h1 {
-  @include font-size-rem(2.5);
+  @include font-rem(1.875);
   font-weight: $bold-font-weight;
-  margin-bottom: font-size-rem(2.5);
+  margin-bottom: rem-calc(30);
 }
 
 h2 {
-  @include font-size-rem(2.25);
+  @include font-rem(1.75);
   font-weight: $bold-font-weight;
-  margin-bottom: font-size-rem(2.25);
+  margin-bottom: rem-calc(28);
 }
 
 h3 {
-  @include font-size-rem(2);
+  @include font-rem(1.625);
   font-weight: $bold-font-weight;
-  margin-bottom: font-size-rem(2);
+  margin-bottom: rem-calc(26);
 }
 
 h4 {
-  @include font-size-rem(1.75);
+  @include font-rem(1.5);
   font-weight: $bold-font-weight;
-  margin-bottom: font-size-rem(1.75);
+  margin-bottom: rem-calc(24);
 }
 
 h5 {
-  @include font-size-rem(1.5);
+  @include font-rem(1.375);
   font-weight: $bold-font-weight;
-  margin-bottom: font-size-rem(1.5);
+  margin-bottom: rem-calc(22);
 }
 
 h6 {
-  @include font-size-rem(1.25);
+  @include font-rem(1.125);
   font-weight: $bold-font-weight;
-  margin-bottom: font-size-rem(1.25);
+  margin-bottom: rem-calc(18);
 }
 
 p {
-  font-size: font-size-rem(1);
+  @include font-rem(1);
   font-weight: $normal-font-weight;
 }
 

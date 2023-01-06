@@ -105,11 +105,11 @@ class Content extends React.Component<{}, State> {
 
   render() {
     return (
-      <section id="content">
-        <section id="header">
-          <h2 className="content__heading">Affordable Housing Listings</h2>
+      <section className="content">
+        <section className="header">
+          <h6 className="content__heading">Affordable Housing Listings</h6>
         </section>
-        <section id="search">
+        <section className="search">
           <Search
             onSearch={this.handleSearch}
             page={this.state.currentPage}
@@ -119,8 +119,8 @@ class Content extends React.Component<{}, State> {
             sortOrder={this.state.sortOrder}
           />
         </section>
-        <section id="filters">
-          <h4>Filters</h4>
+        <section className="filters">
+          <h6>Filters</h6>
           <RangeSlider
             minOccupancy={this.state.minOccupancy}
             maxOccupancy={this.state.maxOccupancy}
@@ -131,7 +131,7 @@ class Content extends React.Component<{}, State> {
             onSave={this.handleRefinements}
           />
         </section>
-        <section id="results-header">
+        <section className="results-header">
           <SetPageLimitSelect
             onSelect={this.handlePageLimitSelect}
             selectLabel="Items per page:"
@@ -175,7 +175,7 @@ class Content extends React.Component<{}, State> {
             ]}
           />
         </section>
-        <section id="results">
+        <section className="results">
           {this.state.listItems.map((listing) => (
             <ListingCard
               key={listing.id}
@@ -186,7 +186,7 @@ class Content extends React.Component<{}, State> {
             />
           ))}
         </section>
-        <section id="page-controls">
+        <section className="page-controls">
           {this.state.totalPages > 1 && (
             <Pagination
               currentPage={this.state.currentPage}

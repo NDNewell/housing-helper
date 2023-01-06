@@ -3,6 +3,7 @@
   $font-color: $text-color,
   $font-weight: $normal-font-weight
 ) {
+  text-align: center;
   background-color: $color;
   color: $font-color;
   font-weight: $font-weight;
@@ -10,7 +11,6 @@
   outline: none;
   cursor: pointer;
   border-radius: 5px;
-  padding: 10px 20px;
   transition: all 0.3s ease;
 
   &:hover {
@@ -23,6 +23,7 @@
   $font-color: $text-color,
   $font-weight: $normal-font-weight
 ) {
+  text-align: center;
   background-color: transparent;
   color: $font-color;
   font-weight: $font-weight;
@@ -30,7 +31,6 @@
   outline: none;
   cursor: pointer;
   border-radius: 5px;
-  padding: 10px 20px;
   transition: all 0.3s ease;
 
   &:hover {
@@ -82,8 +82,8 @@
   box-shadow: $textarea-box-shadow;
 }
 
-@mixin font-size-rem($size) {
-  font-size: $size * $rem-base-font-size + rem;
+@mixin font-rem($size) {
+  font-size: $size + rem;
 }
 
 @mixin link {

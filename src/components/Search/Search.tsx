@@ -1,4 +1,6 @@
 import * as React from "react";
+import "./search.scss";
+
 import _ from "lodash";
 
 import api from "../../services/api";
@@ -59,7 +61,7 @@ const Search: React.FC<Props> = ({
   }, [searchQuery, page, refinements, occupancyRange, sortOrder, pageLimit]);
 
   return (
-    <div className="filters__search">
+    <div className="search__form">
       <form onSubmit={handleSearchSubmit}>
         <input
           type="text"

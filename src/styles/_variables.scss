@@ -14,24 +14,25 @@ $primary-font: "Roboto", Arial, sans-serif;
 $secondary-font: Helvetica, Arial, sans-serif;
 
 // Base font size
-$base-font-size: 16px;
-$rem-base-font-size: $base-font-size / $base-font-size;
+$base-font-size: 16;
+$base-font-size-px: 16px;
+$rem-base-font-size: $base-font-size-px / $base-font-size-px;
 
 // Font sizes for xsmall screens
 $base-font-size-xsmall: 12px;
-$rem-base-font-size-xsmall: $base-font-size-xsmall / $base-font-size;
+$rem-base-font-size-xsmall: $base-font-size-xsmall / $base-font-size-px;
 
 // Font sizes for small screens
 $base-font-size-small: 14px;
-$rem-base-font-size-small: $base-font-size-small / $base-font-size;
+$rem-base-font-size-small: $base-font-size-small / $base-font-size-px;
 
 // Font sizes for medium screens
 $base-font-size-medium: 16px;
-$rem-base-font-size-medium: $base-font-size-medium / $base-font-size;
+$rem-base-font-size-medium: $base-font-size-medium / $base-font-size-px;
 
 // Font sizes for large screens
 $base-font-size-large: 18px;
-$rem-base-font-size-large: $base-font-size-large / $base-font-size;
+$rem-base-font-size-large: $base-font-size-large / $base-font-size-px;
 
 // Default font sizes
 $font-size-small: 12px;
