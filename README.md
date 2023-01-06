@@ -26,4 +26,4 @@ Next, start the development server by running the following command:
 The application will now be running on [http://localhost:3000](http://localhost:3000).
 
 Contact the developer
-If you have any questions or feedback about the application, please don't hesitate to contact the developer, Nicholas Newell, at nicholas.newell@pm.me. We hope you find this application helpful in your search for affordable housing!
+If you have any questions or feedback about the application, please don't hesitate to contact the developer. We hope you find this application helpful in your search for affordable housing!
