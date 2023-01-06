@@ -26,11 +26,20 @@
       padding-left: rem-calc(20);
 
       &__heading {
+        $padding: rem-calc(10);
+
         @include panel-styles;
+        padding-top: $padding;
+        padding-bottom: $padding;
         flex-wrap: initial;
+        margin-top: initial;
+        height: rem-calc(41);
 
         .select {
           display: flex;
+          align-items: center;
+          font-size: $font-size-small;
+
           text-align: initial;
           background-color: initial;
           border-radius: initial;
@@ -38,6 +47,10 @@
           border: initial;
           padding: initial;
           margin: initial;
+
+          select {
+            font-size: $font-size-small;
+          }
         }
 
         .select:nth-child(2) {
