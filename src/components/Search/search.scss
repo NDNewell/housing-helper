@@ -1,0 +1,18 @@
+@import "../../styles/mixins";
+@import "../../styles/variables";
+@import "../../styles/functions";
+
+.search {
+  form {
+    display: flex;
+
+    button {
+      width: rem-calc(60);
+      margin-left: rem-calc(5);
+    }
+
+    input {
+      width: 100%;
+    }
+  }
+}

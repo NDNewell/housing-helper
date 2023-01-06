@@ -1,0 +1,9 @@
+.search form {
+  display: flex; }
+
+.search form button {
+  width: 3.75rem;
+  margin-left: 0.3125rem; }
+
+.search form input {
+  width: 100%; }
