@@ -16,12 +16,13 @@ To set up the application, first clone the repository and install the dependenci
 
 git clone https://github.com/nicholasnewell/affordable-housing-listings.git
 
-`cd affordable-housing-listings`
+`cd affordable-housing-listings`  
 `npm install`
 
 Next, start the development server by running the following command:
 
 `npm run dev`
+
 The application will now be running on [http://localhost:3000](http://localhost:3000).
 
 Contact the developer
