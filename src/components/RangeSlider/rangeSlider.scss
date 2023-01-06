@@ -55,3 +55,9 @@
     }
   }
 }
+
+@include media-query($breakpoint-medium) {
+  .range-slider {
+    margin-top: 0;
+  }
+}

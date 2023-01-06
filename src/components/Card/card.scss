@@ -15,7 +15,6 @@
     @include flex-wrap;
 
     width: 100%;
-    // max-width: rem-calc(600);
     margin-bottom: 0;
 
     &-header,
@@ -64,6 +63,7 @@
     &-amenities {
       @include panel-styles;
       box-shadow: none;
+      margin: 0;
     }
   }
 
