@@ -1,23 +1,25 @@
 .range-slider {
-  position: relative;
-  width: 300px;
-  border: 1px solid #bcb9b9;
-  box-shadow: 1.5px 3px 3px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  background-color: white;
   border-radius: 5px;
+  box-shadow: 1.5px 3px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #bcb9b9;
+  padding: 18px;
   margin: 20px 0;
+  position: relative;
   text-align: center; }
 
 .range-slider__container {
   display: flex;
   align-items: center;
   margin: auto;
-  height: 45px;
+  height: 4.6875rem;
   width: 90%; }
 
 .range-slider__track {
   width: 100%;
   background: #ddd;
-  height: 5px;
+  height: 0.3125rem;
   border-radius: 4px; }
 
 .range-slider__track-1, .range-slider__track-2 {
@@ -28,10 +30,10 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  background: #333;
-  font-size: 14px;
-  width: 10px;
-  height: 10px;
+  background: #3197d6;
+  font-size: 0.875rem;
+  width: 1.5625rem;
+  height: 1.5625rem;
   border-radius: 50%;
   filter: drop-shadow(0 2px 4px, #333);
   text-align: center; }
@@ -39,7 +41,7 @@
 .range-slider__thumb::after {
   content: attr(aria-valuenow);
   position: absolute;
-  bottom: -17px;
+  bottom: -1.0625rem;
   border: none; }
 
 .range-slider__thumb--active {

@@ -1,25 +1,27 @@
+@import "../../styles/mixins";
+@import "../../styles/variables";
+@import "../../styles/functions";
+
 .range-slider {
+  width: 100%;
+
+  @include panel-styles;
   position: relative;
-  width: 300px;
-  border: 1px solid rgb(188, 185, 185);
-  box-shadow: 1.5px 3px 3px rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
-  margin: 20px 0;
   text-align: center;
 
   &__container {
     display: flex;
     align-items: center;
     margin: auto;
-    height: 45px;
+    height: rem-calc(75);
     width: 90%;
   }
 
   &__track {
     width: 100%;
-    background: #ddd;
-    height: 5px;
-    border-radius: 4px;
+    background: $range-slider-track-background;
+    height: rem-calc(5);
+    border-radius: $range-slider-track-border-radius;
 
     &-1,
     &-2 {
@@ -32,18 +34,18 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    background: #333;
-    font-size: 14px;
-    width: 10px;
-    height: 10px;
+    background: $range-slider-thumb-background;
+    font-size: rem-calc(14);
+    width: rem-calc(25);
+    height: rem-calc(25);
     border-radius: 50%;
-    filter: drop-shadow(0 2px 4px, #333);
+    filter: drop-shadow($range-slider-thumb-drop-shadow);
     text-align: center;
 
     &::after {
       content: attr(aria-valuenow);
       position: absolute;
-      bottom: -17px;
+      bottom: rem-calc(-17);
       border: none;
     }
 

@@ -59,18 +59,19 @@ $link-underline-hover: underline;
 $link-text-decoration: none;
 $link-text-decoration-hover: none;
 
+// Range slider
+$range-slider-track-background: #ddd;
+$range-slider-track-border-radius: 4px;
+$range-slider-thumb-background: $secondary;
+$range-slider-thumb-drop-shadow: 0 2px 4px, #333;
+
 // Panels
 $panel-background-color: white;
-$panel-border-radius: 4px;
+$panel-border-radius: 5px;
+$panel-border: 1px solid rgb(188, 185, 185);
 $panel-box-shadow: 1.5px 3px 3px rgba(0, 0, 0, 0.1);
-
-$panel-small-width: 300px;
-$panel-medium-width: 500px;
-$panel-large-width: 700px;
-
-$panel-small-height: 200px;
-$panel-medium-height: 400px;
-$panel-large-height: 600px;
+$panel-padding: 18px;
+$panel-margin: 20px 0;
 
 // Button colors
 $button-primary-color: #477ea1;

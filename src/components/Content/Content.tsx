@@ -10,7 +10,7 @@ import RangeSlider from "../RangeSlider/RangeSlider";
 import Search from "../Search/Search";
 import SetPageLimitSelect from "../Select/Select";
 import SortListSelect from "../Select/Select";
-import ListingCard from "../Card/Card";
+import Card from "../Card/Card";
 
 class Content extends React.Component<{}, State> {
   state: State = {
@@ -20,7 +20,7 @@ class Content extends React.Component<{}, State> {
     selectedRefinements: [],
     defaultPage: 1,
     currentPage: 1,
-    pageLimit: 5,
+    pageLimit: 10,
     totalPages: 0,
     sortOrder: "",
     minOccupancy: 0,
@@ -107,9 +107,9 @@ class Content extends React.Component<{}, State> {
     return (
       <section className="content">
         <section className="header">
-          <h6 className="content__heading">Affordable Housing Listings</h6>
+          <h5 className="content__heading">Find a place to live</h5>
         </section>
-        <section className="search">
+        <section className="tools">
           <Search
             onSearch={this.handleSearch}
             page={this.state.currentPage}
@@ -118,9 +118,6 @@ class Content extends React.Component<{}, State> {
             occupancyRange={this.state.occupancyRange}
             sortOrder={this.state.sortOrder}
           />
-        </section>
-        <section className="filters">
-          <h6>Filters</h6>
           <RangeSlider
             minOccupancy={this.state.minOccupancy}
             maxOccupancy={this.state.maxOccupancy}
@@ -131,60 +128,57 @@ class Content extends React.Component<{}, State> {
             onSave={this.handleRefinements}
           />
         </section>
-        <section className="results-header">
-          <SetPageLimitSelect
-            onSelect={this.handlePageLimitSelect}
-            selectLabel="Items per page:"
-            selectOptions={[
-              {
-                label: "5",
-                value: "5",
-                default: true,
-              },
-              {
-                label: "10",
-                value: "10",
-                default: false,
-              },
-              {
-                label: "15",
-                value: "15",
-                default: false,
-              },
-              {
-                label: "20",
-                value: "20",
-                default: false,
-              },
-            ]}
-          />
-          <SortListSelect
-            onSelect={this.handleSortSelect}
-            selectLabel="Sort by:"
-            selectOptions={[
-              {
-                label: "A-Z",
-                value: "asc",
-                default: true,
-              },
-              {
-                label: "Z-A",
-                value: "desc",
-                default: false,
-              },
-            ]}
-          />
-        </section>
         <section className="results">
-          {this.state.listItems.map((listing) => (
-            <ListingCard
-              key={listing.id}
-              id={listing.id}
-              name={listing.name}
-              picture={listing.picture}
-              units={listing.units}
+          <div className="results__heading">
+            <SetPageLimitSelect
+              onSelect={this.handlePageLimitSelect}
+              selectLabel="Items per page:"
+              selectOptions={[
+                {
+                  label: "10",
+                  value: "10",
+                  default: true,
+                },
+                {
+                  label: "15",
+                  value: "15",
+                  default: false,
+                },
+                {
+                  label: "20",
+                  value: "20",
+                  default: false,
+                },
+              ]}
             />
-          ))}
+            <SortListSelect
+              onSelect={this.handleSortSelect}
+              selectLabel="Sort by:"
+              selectOptions={[
+                {
+                  label: "A-Z",
+                  value: "asc",
+                  default: true,
+                },
+                {
+                  label: "Z-A",
+                  value: "desc",
+                  default: false,
+                },
+              ]}
+            />
+          </div>
+          <div className="results__list">
+            {this.state.listItems.map((listing) => (
+              <Card
+                key={listing.id}
+                id={listing.id}
+                name={listing.name}
+                picture={listing.picture}
+                units={listing.units}
+              />
+            ))}
+          </div>
         </section>
         <section className="page-controls">
           {this.state.totalPages > 1 && (

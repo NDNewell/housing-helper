@@ -1,13 +1,67 @@
 @import "../../styles/mixins";
 @import "../../styles/variables";
+@import "../../styles/functions";
 
 .content {
-  @include media-query($breakpoint-small) {
-    @include grid-columns(1);
+  // @include grid-columns(1);
+  @include flex-wrap;
+
+  .header,
+  .tools,
+  .results,
+  .page-controls {
+    width: 100%;
+  }
+
+  .tools {
+    max-width: rem-calc(300);
+    width: 100%;
+  }
+}
+
+@include media-query($breakpoint-small) {
+  .content {
+    .results {
+      width: initial;
+      max-width: initial;
+      flex-grow: 1;
+    }
+  }
+}
+
+.results {
+  &__heading {
     @include flex-wrap;
 
-    section {
+    .select {
+      $fontSize: rem-calc(18);
+
+      @include panel-styles;
       width: 100%;
+      text-align: center;
+      font-size: $fontSize;
+
+      select {
+        margin-left: rem-calc(5);
+        font-size: $fontSize;
+        border-radius: rem-calc(5);
+        color: $text-color;
+      }
     }
+  }
+
+  &__list {
+    @include flex-wrap;
+  }
+}
+
+.filters {
+  @include flex-wrap;
+}
+
+@include media-query($breakpoint-medium) {
+  .header,
+  .results {
+    max-width: initial;
   }
 }

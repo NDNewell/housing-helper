@@ -1,8 +1,9 @@
 import * as React from "react";
 import "./card.scss";
+
 import { Unit, Props } from "./types";
 
-const ListingCard = ({ id, name, picture, units }: Props) => {
+const Card = ({ id, name, picture, units }: Props) => {
   // unitTotalsList is an array of objects, each containing a unit type, the total number of units of that type, and the average square footage of units of that type
   const [unitTotalsList, setUnitTypesList] = React.useState<
     Array<{
@@ -114,28 +115,29 @@ const ListingCard = ({ id, name, picture, units }: Props) => {
   }, [units]);
 
   return (
-    <div className="listing-card" key={id}>
-      <div className="listing-card__img-container">
-        <img src={picture} alt={name} className="listing-card__img" />
+    <div className="results__card">
+      <div className="results__card-picture">
+        <img src={picture} alt={name} />
       </div>
-      <div className="listing-card__details">
-        <h3 className="listing-card__name">{name}</h3>
-        <h5>Available Units:</h5>
-        <ul className="listing-card__unit-types">
+      <div className="results__card-details">
+        <h3 className="results__card-name">{name}</h3>
+        <h6>Available Units</h6>
+        <ul className="results__card-unit-types">
           {unitTotalsList.map((unit) => {
             return (
               <li key={unit.type}>
-                {unit.type}: {unit.unitTotals} units, avg {unit.averageSqft}{" "}
-                ft², {unit.minOccupancy}-{unit.maxOccupancy} max occupants
+                <span>{unit.type}</span> - {unit.unitTotals} units, avg{" "}
+                {unit.averageSqft} ft², {unit.minOccupancy}-{unit.maxOccupancy}{" "}
+                max occupants
               </li>
             );
           })}
         </ul>
-        <h5>Some units may include following:</h5>
-        <span>{amenities.join(", ")}</span>
+        <h6>Units may include</h6>
+        <div className="results__card-amenities">{amenities.join(", ")}</div>
       </div>
     </div>
   );
 };
 
-export default ListingCard;
+export default Card;

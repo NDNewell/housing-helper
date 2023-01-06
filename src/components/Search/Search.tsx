@@ -61,18 +61,20 @@ const Search: React.FC<Props> = ({
   }, [searchQuery, page, refinements, occupancyRange, sortOrder, pageLimit]);
 
   return (
-    <div className="search__form">
-      <form onSubmit={handleSearchSubmit}>
-        <input
-          type="text"
-          onChange={onChange}
-          placeholder="Search for a property"
-          value={searchQuery}
-        ></input>
-        <button type="button" onClick={handleClear} disabled={!searchQuery}>
-          Clear
-        </button>
-      </form>
+    <div className="search">
+      <div className="search__form">
+        <form onSubmit={handleSearchSubmit}>
+          <input
+            type="text"
+            onChange={onChange}
+            placeholder="Search for a property"
+            value={searchQuery}
+          ></input>
+          <button type="button" onClick={handleClear} disabled={!searchQuery}>
+            Clear
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

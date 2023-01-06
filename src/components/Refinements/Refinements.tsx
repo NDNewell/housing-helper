@@ -1,4 +1,6 @@
 import * as React from "react";
+import "./refinements.scss";
+
 import { Props } from "./types";
 
 const Refinements: React.FC<Props> = ({ refinements, onSave }) => {
@@ -23,16 +25,18 @@ const Refinements: React.FC<Props> = ({ refinements, onSave }) => {
 
   return (
     <div className="refinements">
-      <form>
+      <form className="refinements__form">
         {refinements.map((refinement) => (
-          <label key={refinement}>
+          <label className="refinements__label" key={refinement}>
             <input type="checkbox" value={refinement} onChange={handleChange} />
-            {refinement}
+            <span>{refinement}</span>
           </label>
         ))}
-        <button type="button" onClick={handleSave}>
-          Save
-        </button>
+        <div className="refinements__button">
+          <button type="button" onClick={handleSave}>
+            Save
+          </button>
+        </div>
       </form>
     </div>
   );

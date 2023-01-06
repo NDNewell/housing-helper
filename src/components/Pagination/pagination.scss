@@ -1,56 +1,103 @@
+@import "../../styles/mixins";
+@import "../../styles/variables";
+@import "../../styles/functions";
+
 .pagination {
-  &__item {
+  &__container {
     display: flex;
-    align-items: center;
     justify-content: center;
-    margin: 2rem 0;
+    margin: rem-calc(2) 0;
     list-style-type: none;
+    padding: rem-calc(0);
   }
 
-  &__item--active {
+  &__page {
     display: flex;
-    align-items: center;
-    list-style: none;
-    background-color: #ccc;
+    border: rem-calc(1) solid #ccc;
+    border-radius: rem-calc(5);
+    padding: rem-calc(0) !important;
+    margin: rem-calc(0) rem-calc(1);
+    cursor: pointer;
+    transition: background-color 0.2s;
+    user-select: none;
 
-    &__previous,
-    &__next,
-    &__page {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid #ccc;
-      border-radius: 3px;
-      padding: 0 !important;
-      margin: 0 0.5rem;
-      cursor: pointer;
-      transition: background-color 0.2s;
-      user-select: none;
-
-      &:hover {
-        background-color: #ccc;
-      }
+    &:hover {
+      background-color: #ccc;
     }
 
-    &__previous {
-      border-radius: 3px 0 0 3px;
+    &--active {
+      background-color: #ccc;
+    }
+  }
+
+  &__next,
+  &__previous {
+    @include button-outline-style;
+    padding: 8px;
+    width: rem-calc(40);
+
+    a {
       padding: 8px;
     }
+  }
 
-    &__next {
-      border-radius: 0 3px 3px 0;
-      padding: 8px;
-    }
-
-    &__previous,
-    &__next {
-      a {
-        padding: 8px;
-      }
-    }
-
-    &__pageLink {
-      padding: 8px;
-    }
+  &__pageLink {
+    padding: 8px;
   }
 }
+// .pagination {
+//   &__item {
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     margin: rem-calc(2) 0;
+//     list-style-type: none;
+//   }
+
+//   &__item--active {
+//     display: flex;
+//     align-items: center;
+//     list-style: none;
+//     background-color: #ccc;
+
+//     &__previous,
+//     &__next,
+//     &__page {
+//       display: flex;
+//       align-items: center;
+//       justify-content: center;
+//       border: 1px solid #ccc;
+//       border-radius: 3px;
+//       padding: 0 !important;
+//       margin: 0 0.5rem;
+//       cursor: pointer;
+//       transition: background-color 0.2s;
+//       user-select: none;
+
+//       &:hover {
+//         background-color: #ccc;
+//       }
+//     }
+
+//     &__previous {
+//       border-radius: 3px 0 0 3px;
+//       padding: 8px;
+//     }
+
+//     &__next {
+//       border-radius: 0 3px 3px 0;
+//       padding: 8px;
+//     }
+
+//     &__previous,
+//     &__next {
+//       a {
+//         padding: 8px;
+//       }
+//     }
+
+//     &__pageLink {
+//       padding: 8px;
+//     }
+//   }
+// }

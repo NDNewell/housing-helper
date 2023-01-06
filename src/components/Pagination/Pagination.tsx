@@ -18,14 +18,14 @@ const Pagination: React.FC<Props> = ({
         pageRangeDisplayed={10}
         marginPagesDisplayed={1}
         onPageChange={onPageChange}
-        containerClassName="pagination__item"
-        activeClassName="pagination__item--active"
-        previousClassName="pagination__item--active__previous"
-        nextClassName="pagination__item--active__next"
-        pageClassName="pagination__item--active__page"
-        pageLinkClassName="pagination__item--active__pageLink"
-        disabledClassName="pagination__item--active__disabled"
-        breakClassName="pagination__item--active__break"
+        containerClassName="pagination__container"
+        activeClassName="pagination__page--active"
+        nextClassName="pagination__next"
+        previousClassName="pagination__previous"
+        pageClassName="pagination__page"
+        pageLinkClassName="pagination__pageLink"
+        previousLabel="<"
+        nextLabel=">"
       />
     </div>
   );

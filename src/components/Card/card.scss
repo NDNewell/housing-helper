@@ -1,31 +1,68 @@
-.listing-card {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-bottom: 1rem;
+@import "../../styles/mixins";
+@import "../../styles/variables";
+@import "../../styles/functions";
 
-  &__picture {
-    width: 20%;
-    min-width: 200px;
-    height: 200px;
-    background-size: cover;
-    background-position: center;
+.results {
+  &__list {
+    @include flex-wrap;
   }
 
-  &__name {
-    width: 20%;
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-right: 1rem;
-  }
+  &__card {
+    @include panel-styles;
 
-  &__unit-types {
-    list-style: none;
-  }
+    width: 100%;
+    margin-bottom: rem-calc(16);
 
-  &__details {
-    display: flex;
-    flex-direction: column;
-    width: 60%;
+    &-picture {
+      img {
+        border-radius: rem-calc(5);
+        width: 100%;
+      }
+    }
+
+    &-details {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+
+      h3,
+      h6 {
+        text-align: center;
+      }
+
+      h6 {
+        margin: 0;
+      }
+    }
+
+    &-name {
+      @include panel-styles;
+      box-shadow: none;
+      background: $primary;
+    }
+
+    &-unit-types {
+      @include panel-styles;
+      box-shadow: none;
+      list-style: none;
+      padding: rem-calc(0);
+
+      li {
+        padding: rem-calc(0) rem-calc(18);
+      }
+
+      li:nth-child(odd) {
+        background: lighten($primary, 5%);
+      }
+
+      span {
+        font-weight: $medium-font-weight;
+      }
+    }
+
+    &-amenities {
+      @include panel-styles;
+      box-shadow: none;
+    }
   }
 }

@@ -1,7 +1,8 @@
-import "./rangeSlider.scss";
-import Slider from "react-slider";
 import React, { useState, useEffect } from "react";
+import "./rangeSlider.scss";
+
 import { RangeSliderProps } from "./types";
+import Slider from "react-slider";
 
 // Create the RangeSlider component
 const RangeSlider: React.FC<RangeSliderProps> = ({
