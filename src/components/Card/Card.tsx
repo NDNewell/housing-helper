@@ -116,26 +116,24 @@ const Card = ({ id, name, picture, units }: Props) => {
 
   return (
     <div className="results__card">
+      <div className="results__card-header">
+        <h3 className="results__card-name">{name}</h3>
+      </div>
       <div className="results__card-picture">
         <img src={picture} alt={name} />
       </div>
-      <div className="results__card-details">
-        <h3 className="results__card-name">{name}</h3>
-        <h6>Available Units</h6>
-        <ul className="results__card-unit-types">
-          {unitTotalsList.map((unit) => {
-            return (
-              <li key={unit.type}>
-                <span>{unit.type}</span> - {unit.unitTotals} units, avg{" "}
-                {unit.averageSqft} ft², {unit.minOccupancy}-{unit.maxOccupancy}{" "}
-                max occupants
-              </li>
-            );
-          })}
-        </ul>
-        <h6>Units may include</h6>
-        <div className="results__card-amenities">{amenities.join(", ")}</div>
-      </div>
+      <ul className="results__card-unit-types">
+        {unitTotalsList.map((unit) => {
+          return (
+            <li key={unit.type}>
+              <span>{unit.type}</span> - {unit.unitTotals} units, avg{" "}
+              {unit.averageSqft} ft², {unit.minOccupancy}-{unit.maxOccupancy}{" "}
+              max occupants
+            </li>
+          );
+        })}
+      </ul>
+      <div className="results__card-amenities">{amenities.join(", ")}</div>
     </div>
   );
 };
