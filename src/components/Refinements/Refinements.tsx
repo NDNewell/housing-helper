@@ -24,16 +24,25 @@ const Refinements: React.FC<Props> = ({ refinements, onSave }) => {
   };
 
   return (
-    <div className="refinements">
+    <div className="refinements" aria-label="Filter options">
       <form className="refinements__form">
         {refinements.map((refinement) => (
           <label className="refinements__label" key={refinement}>
-            <input type="checkbox" value={refinement} onChange={handleChange} />
+            <input
+              type="checkbox"
+              value={refinement}
+              onChange={handleChange}
+              aria-label={`Filter by ${refinement}`}
+            />
             <span>{refinement}</span>
           </label>
         ))}
         <div className="refinements__button">
-          <button type="button" onClick={handleSave}>
+          <button
+            type="button"
+            onClick={handleSave}
+            aria-label="Save filter changes"
+          >
             Save
           </button>
         </div>

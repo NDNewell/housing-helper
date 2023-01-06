@@ -11,7 +11,7 @@ const Pagination: React.FC<Props> = ({
   onPageChange,
 }) => {
   return (
-    <div className="pagination">
+    <div className="pagination" aria-label="Pagination Navigation">
       <PaginateComp
         forcePage={currentPage === 0 ? currentPage : currentPage - 1}
         pageCount={totalPages}
@@ -24,8 +24,8 @@ const Pagination: React.FC<Props> = ({
         previousClassName="pagination__previous"
         pageClassName="pagination__page"
         pageLinkClassName="pagination__pageLink"
-        previousLabel="<"
-        nextLabel=">"
+        previousLabel={<span aria-label="Previous page">{"<"}</span>}
+        nextLabel={<span aria-label="Next page">{">"}</span>}
       />
     </div>
   );

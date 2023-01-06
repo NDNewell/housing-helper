@@ -106,7 +106,7 @@ class Content extends React.Component<{}, State> {
   render() {
     return (
       <section className="content">
-        <section className="header">
+        <section className="header" aria-label="Find a place to live">
           <h5 className="content__heading">Find a place to live</h5>
         </section>
         <section className="search">
