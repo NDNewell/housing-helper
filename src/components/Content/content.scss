@@ -3,8 +3,9 @@
 @import "../../styles/functions";
 
 .content {
-  // @include grid-columns(1);
   @include flex-wrap;
+  max-width: rem-calc(750);
+  margin: auto;
 
   .header,
   .search,
@@ -20,6 +21,7 @@
     @include flex-wrap;
 
     .select {
+      margin-top: 0 !important;
       $fontSize: rem-calc(18);
 
       @include panel-styles;

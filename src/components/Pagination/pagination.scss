@@ -3,6 +3,8 @@
 @import "../../styles/functions";
 
 .pagination {
+  margin-top: rem-calc(20);
+
   &__container {
     display: flex;
     justify-content: center;

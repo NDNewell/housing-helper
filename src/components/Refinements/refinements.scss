@@ -5,6 +5,7 @@
 .refinements {
   @include panel-styles;
   width: 100%;
+  margin-top: rem-calc(0);
 
   &__form {
     @include flex-wrap;
@@ -41,30 +42,32 @@
   }
 }
 
-// @include media-query($breakpoint-xsmall) {
-//   .refinements {
-//     form {
-//       justify-content: flex-start;
-//     }
+@include media-query($breakpoint-xsmall) {
+  .refinements {
+    form {
+      margin: auto;
+      justify-content: flex-start;
+      max-width: rem-calc(550);
+    }
 
-//     &__label {
-//       width: 50%;
-//     }
-//   }
-// }
+    &__label {
+      width: 50%;
+    }
+  }
+}
 
-// @include media-query($breakpoint-small) {
-//   .refinements {
-//     &__button {
-//       display: flex;
-//       justify-content: flex-end;
-//     }
+@include media-query($breakpoint-small) {
+  .refinements {
+    &__button {
+      display: flex;
+      justify-content: flex-end;
+    }
 
-//     button {
-//       width: rem-calc(120);
-//     }
-//   }
-// }
+    button {
+      width: rem-calc(120);
+    }
+  }
+}
 
 // @include media-query($breakpoint-medium) {
 //   .refinements {

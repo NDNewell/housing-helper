@@ -6,14 +6,17 @@
   &__list {
     @include flex-wrap;
   }
+  &__card:nth-child(1) {
+    margin-top: 0 !important;
+  }
 
   &__card {
     @include panel-styles;
     @include flex-wrap;
 
     width: 100%;
-    max-width: rem-calc(600);
-    margin-bottom: rem-calc(16);
+    // max-width: rem-calc(600);
+    margin-bottom: 0;
 
     &-header,
     &-picture,
@@ -37,11 +40,14 @@
 
     &-unit-types {
       @include panel-styles;
+      @include flex-wrap;
+
       box-shadow: none;
       list-style: none;
       padding: rem-calc(0);
 
       li {
+        width: 100%;
         padding: rem-calc(0) rem-calc(18);
       }
 
@@ -50,6 +56,7 @@
       }
 
       span {
+        min-width: rem-calc(50);
         font-weight: $medium-font-weight;
       }
     }
@@ -87,6 +94,11 @@
           flex-grow: 2;
           margin: 0;
           width: 50%;
+
+          li {
+            display: flex;
+            align-items: center;
+          }
         }
 
         &-amenities {
