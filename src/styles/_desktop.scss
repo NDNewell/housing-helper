@@ -1,0 +1,39 @@
+// @import "variables";
+// @import "mixins";
+// @import "base";
+
+// Desktop-specific styles go here
+
+// Override base styles for larger screens
+
+// Adjust font sizes for desktop
+h1 {
+  font-size: 3rem;
+}
+
+h2 {
+  font-size: 2.5rem;
+}
+
+// Change layout for larger screens
+.main-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.sidebar {
+  width: 25%;
+  float: left;
+}
+
+.main-content {
+  width: 75%;
+  float: right;
+}
+
+// Add hover effect to buttons
+button {
+  &:hover {
+    background-color: $button-hover-color;
+  }
+}

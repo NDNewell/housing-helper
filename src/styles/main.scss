@@ -1,37 +1,6 @@
-$primary: #477ea1;
-$secondary: #585858;
-$tertiary: #a0a0a0;
-$accent: #df6f00;
-$accent-dark: #de6f00;
-$text: #404040;
-$background: #000000;
-$border: #000000;
-
-@mixin font-size($size) {
-  font-size: $size;
-  font-size: calc($size / 16 * 1rem);
-}
-
-@mixin font-weight($weight) {
-  font-weight: $weight;
-  font-weight: calc($weight / 400 * 1em);
-}
-
-@mixin border-radius($radius) {
-  border-radius: $radius;
-  border-radius: calc($radius / 16 * 1rem);
-}
-
-// Example BEM-style component
-.header {
-  &__title {
-    @include font-size(24px);
-    @include font-weight(600);
-    color: $primary;
-  }
-  &__subtitle {
-    @include font-size(20px);
-    @include font-weight(400);
-    color: $secondary;
-  }
-}
+@import "variables";
+@import "mixins";
+@import "base";
+@import "mobile";
+@import "tablet";
+@import "desktop";

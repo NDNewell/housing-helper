@@ -1,0 +1,111 @@
+// Colors
+$primary: #477ea1;
+$secondary: #585858;
+$text-color: #212121;
+
+// Font weights
+$light-font-weight: 300;
+$normal-font-weight: 400;
+$medium-font-weight: 500;
+$bold-font-weight: 700;
+
+// Font families
+$primary-font: "Open Sans", sans-serif;
+$secondary-font: "Roboto", sans-serif;
+
+// Font sizes
+$base-font-size: 16px;
+$rem-base-font-size: $base-font-size / $base-font-size;
+
+$font-size-small: 12px;
+$font-size-medium: 16px;
+$font-size-large: 24px;
+
+// Spacing
+$page-padding: 20px;
+$gutter-width: 20px;
+$page-max-width: 1200px;
+
+// Media query breakpoints
+$breakpoint-small: 576px;
+$breakpoint-medium: 768px;
+$breakpoint-large: 992px;
+$breakpoint-xlarge: 1200px;
+
+// Link colors
+$link-color: $primary;
+$link-color-hover: darken($link-color, 10%);
+$link-underline: none;
+$link-underline-hover: underline;
+$link-text-decoration: none;
+$link-text-decoration-hover: none;
+
+// Panels
+$panel-background-color: white;
+$panel-border-radius: 4px;
+$panel-box-shadow: 1.5px 3px 3px rgba(0, 0, 0, 0.1);
+
+$panel-small-width: 300px;
+$panel-medium-width: 500px;
+$panel-large-width: 700px;
+
+$panel-small-height: 200px;
+$panel-medium-height: 400px;
+$panel-large-height: 600px;
+
+// Button colors
+$button-primary-color: #477ea1;
+$button-secondary-color: #585858;
+$button-hover-color: lighten($primary, 10%);
+
+// Button font sizes
+$button-font-size-small: 12px;
+$button-font-size-medium: 16px;
+$button-font-size-large: 24px;
+
+// Button padding
+$button-padding-small: 8px 16px;
+$button-padding-medium: 12px 24px;
+$button-padding-large: 16px 32px;
+
+// Button border radius
+$button-border-radius: 4px;
+
+// Button box-shadow
+$button-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+// Form styles
+$form-font-size: $font-size-medium;
+$form-font-weight: $normal-font-weight;
+$form-label-color: $text-color;
+$form-input-color: $text-color;
+$form-input-border-color: lighten($secondary, 20%);
+$form-input-border-radius: 4px;
+$form-input-border-width: 1px;
+$form-input-border-style: solid;
+$form-input-padding: 10px;
+$form-input-font-family: $primary-font;
+
+// Input styles
+$input-font-size: $font-size-medium;
+$input-font-weight: $normal-font-weight;
+$input-color: $text-color;
+$input-border-color: lighten($secondary, 20%);
+$input-border-radius: 4px;
+$input-border-width: 1px;
+$input-border-style: solid;
+$input-padding: 10px;
+$input-font-family: $primary-font;
+
+// Textarea styles
+$textarea-font-size: $font-size-medium;
+$textarea-font-weight: $normal-font-weight;
+$textarea-color: $text-color;
+$textarea-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+$textarea-border-color: lighten($secondary, 20%);
+$textarea-border-radius: 4px;
+$textarea-border-width: 1px;
+$textarea-border-style: solid;
+$textarea-padding: 10px;
+$textarea-font-family: $primary-font;
+$textarea-height: 200px;
