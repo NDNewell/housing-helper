@@ -49,15 +49,15 @@
       justify-content: flex-start;
       max-width: rem-calc(550);
     }
-
-    &__label {
-      width: 50%;
-    }
   }
 }
 
 @include media-query($breakpoint-small) {
   .refinements {
+    &__label {
+      width: 50%;
+    }
+
     &__button {
       display: flex;
       justify-content: flex-end;
