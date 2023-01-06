@@ -107,6 +107,24 @@ class Listings extends React.Component<{}, State> {
     return (
       <div className="listings">
         <h2 className="listings__heading">Affordable Housing Listings</h2>
+        <Search
+          onSearch={this.handleSearch}
+          page={this.state.currentPage}
+          pageLimit={this.state.pageLimit}
+          refinements={this.state.selectedRefinements.join(",")}
+          occupancyRange={this.state.occupancyRange}
+          sortOrder={this.state.sortOrder}
+        />
+        <h4>Filters</h4>
+        <RangeSlider
+          minOccupancy={this.state.minOccupancy}
+          maxOccupancy={this.state.maxOccupancy}
+          onRangeChange={this.handleRangeChange}
+        />
+        <Refinements
+          refinements={this.state.availableRefinements}
+          onSave={this.handleRefinements}
+        />
         <SetPageLimitSelect
           onSelect={this.handlePageLimitSelect}
           selectLabel="Items per page:"
@@ -148,24 +166,6 @@ class Listings extends React.Component<{}, State> {
               default: false,
             },
           ]}
-        />
-        <Search
-          onSearch={this.handleSearch}
-          page={this.state.currentPage}
-          pageLimit={this.state.pageLimit}
-          refinements={this.state.selectedRefinements.join(",")}
-          occupancyRange={this.state.occupancyRange}
-          sortOrder={this.state.sortOrder}
-        />
-        <h4>Filters</h4>
-        <RangeSlider
-          minOccupancy={this.state.minOccupancy}
-          maxOccupancy={this.state.maxOccupancy}
-          onRangeChange={this.handleRangeChange}
-        />
-        <Refinements
-          refinements={this.state.availableRefinements}
-          onSave={this.handleRefinements}
         />
         {this.state.listItems.map((listing) => (
           <ListingCard
