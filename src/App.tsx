@@ -5,9 +5,9 @@ import Content from "./components/Content/Content";
 
 const App: React.FC = () => {
   return (
-    <div className="app">
+    <main className="app">
       <Content />
-    </div>
+    </main>
   );
 };
 

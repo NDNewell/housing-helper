@@ -1,6 +1,13 @@
-.listings {
-  &__heading {
-    font-size: 2rem;
-    font-weight: 600;
+@import "../../styles/mixins";
+@import "../../styles/variables";
+
+#content {
+  @include media-query($breakpoint-small) {
+    @include grid-columns(1);
+    @include flex-wrap;
+
+    section {
+      width: 100%;
+    }
   }
 }

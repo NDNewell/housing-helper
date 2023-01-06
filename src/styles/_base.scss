@@ -3,9 +3,21 @@
 
 html {
   box-sizing: border-box;
-  font-size: $base-font-size;
+  font-size: $base-font-size-xsmall;
   font-family: $primary-font;
   color: $text-color;
+
+  @include media-query($breakpoint-small) {
+    font-size: $base-font-size-small;
+  }
+
+  @include media-query($breakpoint-medium) {
+    font-size: $base-font-size-medium;
+  }
+
+  @include media-query($breakpoint-large) {
+    font-size: $base-font-size-large;
+  }
 }
 
 *,
@@ -18,29 +30,6 @@ html {
 body {
   margin: 0;
   padding: $page-padding;
-  font-family: $primary-font;
-  font-size: $base-font-size;
-  color: $text-color;
-}
-
-h1 {
-  @include font-size-rem(2.5);
-  font-weight: $bold-font-weight;
-}
-
-h2 {
-  @include font-size-rem(2);
-  font-weight: $bold-font-weight;
-}
-
-h3 {
-  @include font-size-rem(1.5);
-  font-weight: $bold-font-weight;
-}
-
-p {
-  font-size: $font-size-medium;
-  font-weight: $normal-font-weight;
 }
 
 // Links

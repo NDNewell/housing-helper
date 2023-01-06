@@ -105,7 +105,7 @@ class Content extends React.Component<{}, State> {
 
   render() {
     return (
-      <div className="content">
+      <section id="content">
         <section id="header">
           <h2 className="content__heading">Affordable Housing Listings</h2>
         </section>
@@ -195,7 +195,7 @@ class Content extends React.Component<{}, State> {
             />
           )}
         </section>
-      </div>
+      </section>
     );
   }
 }

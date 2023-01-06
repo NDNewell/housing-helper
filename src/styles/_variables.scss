@@ -13,20 +13,38 @@ $bold-font-weight: 700;
 $primary-font: "Roboto", Arial, sans-serif;
 $secondary-font: Helvetica, Arial, sans-serif;
 
-// Font sizes
+// Base font size
 $base-font-size: 16px;
 $rem-base-font-size: $base-font-size / $base-font-size;
 
+// Font sizes for xsmall screens
+$base-font-size-xsmall: 12px;
+$rem-base-font-size-xsmall: $base-font-size-xsmall / $base-font-size;
+
+// Font sizes for small screens
+$base-font-size-small: 14px;
+$rem-base-font-size-small: $base-font-size-small / $base-font-size;
+
+// Font sizes for medium screens
+$base-font-size-medium: 16px;
+$rem-base-font-size-medium: $base-font-size-medium / $base-font-size;
+
+// Font sizes for large screens
+$base-font-size-large: 18px;
+$rem-base-font-size-large: $base-font-size-large / $base-font-size;
+
+// Default font sizes
 $font-size-small: 12px;
 $font-size-medium: 16px;
 $font-size-large: 24px;
 
 // Spacing
 $page-padding: 20px;
-$gutter-width: 20px;
+$gutter-width: 20;
 $page-max-width: 1200px;
 
 // Media query breakpoints
+$breakpoint-xsmall: 320px;
 $breakpoint-small: 576px;
 $breakpoint-medium: 768px;
 $breakpoint-large: 992px;
