@@ -96,13 +96,15 @@
   }
 }
 
-@mixin panel-styles {
-  background-color: $panel-background-color;
-  border-radius: $panel-border-radius;
-  box-shadow: $panel-box-shadow;
-  border: $panel-border;
-  padding: $panel-padding;
-  margin: $panel-margin;
+@mixin panel-styles($disable-styles: false) {
+  @if $disable-styles == false {
+    background-color: $panel-background-color;
+    border-radius: $panel-border-radius;
+    box-shadow: $panel-box-shadow;
+    border: $panel-border;
+    padding: $panel-padding;
+    margin: $panel-margin;
+  }
 }
 
 @mixin media-query($breakpoint) {

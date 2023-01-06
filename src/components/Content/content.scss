@@ -12,19 +12,26 @@
   .page-controls {
     width: 100%;
   }
-
-  .tools {
-    max-width: rem-calc(300);
-    width: 100%;
-  }
 }
 
 @include media-query($breakpoint-small) {
   .content {
+    .tools {
+      max-width: rem-calc(300);
+    }
+
     .results {
-      width: initial;
-      max-width: initial;
-      flex-grow: 1;
+      flex-grow: 2;
+      width: 20%;
+      padding-left: rem-calc(20);
+
+      &__heading {
+        flex-wrap: initial;
+
+        .select {
+          @include panel-styles(true);
+        }
+      }
     }
   }
 }
