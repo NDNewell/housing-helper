@@ -109,7 +109,7 @@ class Content extends React.Component<{}, State> {
         <section className="header">
           <h5 className="content__heading">Find a place to live</h5>
         </section>
-        <section className="tools">
+        <section className="search">
           <Search
             onSearch={this.handleSearch}
             page={this.state.currentPage}
@@ -118,6 +118,8 @@ class Content extends React.Component<{}, State> {
             occupancyRange={this.state.occupancyRange}
             sortOrder={this.state.sortOrder}
           />
+        </section>
+        <section className="filters">
           <RangeSlider
             minOccupancy={this.state.minOccupancy}
             maxOccupancy={this.state.maxOccupancy}

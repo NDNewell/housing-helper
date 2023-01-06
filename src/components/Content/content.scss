@@ -7,7 +7,8 @@
   @include flex-wrap;
 
   .header,
-  .tools,
+  .search,
+  .filters,
   .results,
   .page-controls {
     width: 100%;
@@ -16,8 +17,9 @@
 
 @include media-query($breakpoint-small) {
   .content {
-    .tools {
+    .filters {
       max-width: rem-calc(300);
+      height: fit-content;
     }
 
     .results {
@@ -26,10 +28,34 @@
       padding-left: rem-calc(20);
 
       &__heading {
+        $padding: rem-calc(10);
+
+        @include panel-styles;
+        padding-top: $padding;
+        padding-bottom: $padding;
         flex-wrap: initial;
+        height: rem-calc(45);
 
         .select {
-          @include panel-styles(true);
+          display: flex;
+          align-items: center;
+          font-size: $font-size-small;
+
+          text-align: initial;
+          background-color: initial;
+          border-radius: initial;
+          box-shadow: initial;
+          border: initial;
+          padding: initial;
+          margin: initial;
+
+          select {
+            font-size: $font-size-small;
+          }
+        }
+
+        .select:nth-child(2) {
+          justify-content: flex-end;
         }
       }
     }
